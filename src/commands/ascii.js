@@ -16,7 +16,7 @@ module.exports = {
     },
     test(client){
         if(require("os").type() == "Windows_NT"){
-            console.log("Команда ascii не может быть запущенна на Windows. Команда отключена.")
+            console.log("Команда ascii не может быть запущена на Windows. Команда отключена.")
             client.commands.delete(this.name)
             return
         }
