@@ -1,0 +1,19 @@
+{
+  "name": "redstone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RFX9870",
+  "license": "ISC",
+  "dependencies": {
+    "eris": "^0.13.3",
+    "eris-additions": "^1.4.1",
+    "node-fetch": "^2.6.1",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0",
+    "strftime": "^0.10.0"
+  }
+}

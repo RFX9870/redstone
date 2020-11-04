@@ -1,0 +1,27 @@
+{
+    "prefix": "",
+    "token": "",
+    "owners": [""],
+    "version": "",
+    "embColor": 0,
+    "antibot": false,
+    "support": "",
+    "logger": {
+        "id": "",
+        "token": "",
+        "enabled": false
+    },
+    "errlogger": {
+        "id": "",
+        "token": "",
+        "enabled": false
+    },
+    "sdc": {
+        "enabled": false,
+        "key": ""
+    },
+    "boticord": {
+        "enabled": false,
+        "key": ""
+    }
+}
