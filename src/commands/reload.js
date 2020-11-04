@@ -4,32 +4,32 @@ module.exports = {
     ownerOnly: true,
     async execute(client, message, args, prefix, embColor){
         if(args[0] == "all"){
-            const m = await message.channel.createMessage(`ААААА`)
+            const m = await message.channel.createMessage(`Перезагрузка команд...`)
             client.commands.map(c=>c).forEach(async(cmd, index) => {
                 try{
                     delete require.cache[require.resolve(`./${cmd.name}`)]
                     client.commands.set(cmd.name, require(`./${cmd.name}`))
-                    await m.edit({content: `\`${cmd.name}\` - .O .K (${index+1}/${client.commands.size})`})
+                    await m.edit({content: `\`${cmd.name}\` - перезагружена (${index+1} из ${client.commands.size})`})
                 }catch(error){
-                    await message.channel.createMessage(`\`${cmd.name}\` - не .O .K \`\`${error.toString()}\`\` (${index+1}/${client.commands.size})`)
+                    await message.channel.createMessage(`\`${cmd.name}\` - ошибка \`\`${error.toString()}\`\` (${index+1} из ${client.commands.size})`)
                 }
             })
         }else if(args[0] == "config"){
             try{
                 delete require.cache[require.resolve(`../JSON/config.json`)]
                 global.config = require("../JSON/config.json")
-                await message.channel.createMessage(".O .K")
+                await message.channel.createMessage("Настройки перезагружены!")
             }catch(error){
-                await message.channel.createMessage(`не .O .K (\`\`${error.toString()}\`\`)`)
+                await message.channel.createMessage(`Ошибка при перезагрузке настроек: \`\`${error.toString()}\`\``)
             }
         }else{
-            if(!client.commands.has(args[0])) return await message.channel.createMessage("не .O .K (такой команды нет)")
+            if(!client.commands.has(args[0])) return await message.channel.createMessage("Такой команды нет")
             try{
                 delete require.cache[require.resolve(`./${args[0]}`)]
                 client.commands.set(args[0], require(`./${args[0]}`))
-                await message.channel.createMessage(".O .K")
+                await message.channel.createMessage(`Команда ${args[0]} перезагружена!`)
             }catch(error){
-                await message.channel.createMessage(`не .O .K (\`\`${error.toString()}\`\`)`)
+                await message.channel.createMessage(`Ошибка при перезагрузке ${args[0]}: \`\`${error.toString()}\`\``)
             }
         }
     }
