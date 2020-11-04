@@ -13,5 +13,18 @@ module.exports = {
         }else{
             await message.channel.createMessage(`\`\`\`\n${converted}\`\`\``)
         }
+    },
+    test(client){
+        if(require("os").type() == "Windows_NT"){
+            console.log("Команда ascii не может быть запущенна на Windows. Команда отключена.")
+            client.commands.delete(this.name)
+            return
+        }
+        try{
+            require("child_process").execSync(`toilet a`)
+        }catch{
+            console.log("Команда ascii требует установленного пакета toilet (обычно можно установить через apt install toilet). Команда отключена.")
+            client.commands.delete(this.name)
+        }
     }
 }

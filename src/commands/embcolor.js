@@ -13,7 +13,7 @@ module.exports = {
             clr = await embColors.findOne({where: {userID: message.author.id}})
         }
         if(args[0] == "reset"){
-            await clr.update({value: config.embColor})
+            await clr.destroy()
             await message.channel.createEmbed({
                 author: {
                     name: `${message.author.username}#${message.author.discriminator}`,
