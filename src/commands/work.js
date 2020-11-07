@@ -23,6 +23,11 @@ module.exports = {
             bal = await balance.findOne({where: {userID: message.author.id}})
         }
         await bal.update({value: Number(bal.value) + worked})
+        this.cooldown.add(message.author.id)
+		message.author.workedTimestamp = Date.now()
+        setTimeout(() => {
+            this.cooldown.delete(message.author.id)
+        }, 3600000)
         return await message.channel.createEmbed({
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             fields: [
@@ -33,10 +38,5 @@ module.exports = {
             ],
             color: embColor
         })
-        this.cooldown.add(message.author.id)
-		message.author.workedTimestamp = Date.now()
-        setTimeout(() => {
-            this.cooldown.delete(message.author.id)
-        }, 3600000)
     }
 }
