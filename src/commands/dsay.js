@@ -18,7 +18,7 @@ module.exports = {
             const file = await fetch(attachment.url).then(r => r.buffer())
             files.push({file, name: fname})
         }
-        return await message.delete().catch(() => void 0)
-        await client.createMessage(message.channel.id, say, files)
+        await message.delete().catch(() => void 0)
+        return await client.createMessage(message.channel.id, say, files)
     }
 }
