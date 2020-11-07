@@ -23,7 +23,7 @@ module.exports = {
             bal = await balance.findOne({where: {userID: message.author.id}})
         }
         await bal.update({value: Number(bal.value) + worked})
-        await message.channel.createEmbed({
+        return await message.channel.createEmbed({
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             fields: [
                 {

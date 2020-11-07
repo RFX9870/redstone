@@ -52,6 +52,6 @@ module.exports = {
             ],
             color: embColor
         }
-        await message.channel.createEmbed(embed)
+        return await message.channel.createEmbed(embed)
     }
 }

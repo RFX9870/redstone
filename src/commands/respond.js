@@ -17,6 +17,6 @@ module.exports = {
             color: config.embColor
         }})
         await ticket.update({resolved: true})
-        await message.channel.createMessage("> :white_check_mark: Ответ отправлен")
+        return await message.channel.createMessage("> :white_check_mark: Ответ отправлен")
     }
 }

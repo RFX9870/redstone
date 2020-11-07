@@ -11,25 +11,25 @@ module.exports = {
                     client.commands.set(cmd.name, require(`./${cmd.name}`))
                     await m.edit({content: `\`${cmd.name}\` - перезагружена (${index+1} из ${client.commands.size})`})
                 }catch(error){
-                    await message.channel.createMessage(`\`${cmd.name}\` - ошибка \`\`${error.toString()}\`\` (${index+1} из ${client.commands.size})`)
+                    return await message.channel.createMessage(`\`${cmd.name}\` - ошибка \`\`${error.toString()}\`\` (${index+1} из ${client.commands.size})`)
                 }
             })
         }else if(args[0] == "config"){
             try{
                 delete require.cache[require.resolve(`../JSON/config.json`)]
                 global.config = require("../JSON/config.json")
-                await message.channel.createMessage("Настройки перезагружены!")
+                return await message.channel.createMessage("Настройки перезагружены!")
             }catch(error){
-                await message.channel.createMessage(`Ошибка при перезагрузке настроек: \`\`${error.toString()}\`\``)
+                return await message.channel.createMessage(`Ошибка при перезагрузке настроек: \`\`${error.toString()}\`\``)
             }
         }else{
             if(!client.commands.has(args[0])) return await message.channel.createMessage("Такой команды нет")
             try{
                 delete require.cache[require.resolve(`./${args[0]}`)]
                 client.commands.set(args[0], require(`./${args[0]}`))
-                await message.channel.createMessage(`Команда ${args[0]} перезагружена!`)
+                return await message.channel.createMessage(`Команда ${args[0]} перезагружена!`)
             }catch(error){
-                await message.channel.createMessage(`Ошибка при перезагрузке ${args[0]}: \`\`${error.toString()}\`\``)
+                return await message.channel.createMessage(`Ошибка при перезагрузке ${args[0]}: \`\`${error.toString()}\`\``)
             }
         }
     }

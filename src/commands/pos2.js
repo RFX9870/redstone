@@ -4,6 +4,6 @@ module.exports = {
     async execute(client, message, args, prefix, embColor){
         if(!message.author.pos1) return await message.channel.createMessage("а где первая епта")
         message.author.pos2 = true
-        await message.addReaction("✅")
+        return await message.addReaction("✅")
     }
 }

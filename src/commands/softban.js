@@ -18,7 +18,7 @@ module.exports = {
         if(reason.length > 450) return await message.channel.createMessage("> :x: Указана слишком длинная причина.")
         if(message.channel.guild.members.has(user.id || user) && !message.member.highestRole.higherThan(message.channel.guild.members.get(user.id).highestRole) && message.channel.guild.ownerID != message.author.id) return await message.channel.createMessage("> :x: Нельзя софтбанить участника который выше вас.")
         message.channel.guild.banMember(user.id, days, encodeURI(`${message.author.username} | ${reason}`)).then(async () => {
-            await message.channel.guild.unbanMember(user.id, encodeURI(`${message.author.username} | ${reason} (softban)`))
+            return await message.channel.guild.unbanMember(user.id, encodeURI(`${message.author.username} | ${reason} (softban)`))
             const embed = {
                 title: message.author.tag,
                 fields: [
@@ -29,14 +29,14 @@ module.exports = {
                 ],
                 color: embColor
             }
-            await message.channel.createMessage({embed})
+            return await message.channel.createMessage({embed})
         }).catch(async err => {
             if(err.message == "Unknown User"){
-                await message.channel.createMessage("> :x: Пользователь не найден.")
+                return await message.channel.createMessage("> :x: Пользователь не найден.")
             }else if(err.message == "Missing Permissions"){
-                await message.channel.createMessage("> :x: Не удалось софтбанить этого участника.")
+                return await message.channel.createMessage("> :x: Не удалось софтбанить этого участника.")
             }else if(err.message.endsWith("is not snowflake.")){
-                await message.channel.createMessage("> :x: Указан неверный ID.")
+                return await message.channel.createMessage("> :x: Указан неверный ID.")
             }
         })
     }

@@ -62,6 +62,6 @@ module.exports = {
             })
             embed.fields[5].inline = true
         }
-        await message.channel.createMessage({embed})
+        return await message.channel.createMessage({embed})
     }
 }

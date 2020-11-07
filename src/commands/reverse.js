@@ -13,6 +13,6 @@ module.exports = {
             description: text.split("").reverse().join(""),
             color: embColor
         }
-        await message.channel.createEmbed(embed)
+        return await message.channel.createEmbed(embed)
     }
 }

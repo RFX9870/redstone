@@ -77,9 +77,9 @@ module.exports = {
                     value: `${invite.inviter.username}#${invite.inviter.discriminator} (ID: ${invite.inviter.id})`
                 })
             }
-            await message.channel.createMessage({embed})
+            return await message.channel.createMessage({embed})
         }).catch(async () => {
-            await message.channel.createMessage("> :x: Такого приглашения не существует.")
+            return await message.channel.createMessage("> :x: Такого приглашения не существует.")
         })
     }
 }

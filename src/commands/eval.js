@@ -8,9 +8,9 @@ module.exports = {
         try{
             let evaled = await eval(acode)
             if(typeof evaled != "string") evaled = require("util").inspect(evaled)
-            await message.channel.createMessage(`\`\`\`js\n${evaled}\`\`\``)
+            return await message.channel.createMessage(`\`\`\`js\n${evaled}\`\`\``)
         }catch(err){
-            await message.channel.createMessage(`\`\`\`js\n${err}\`\`\``)
+            return await message.channel.createMessage(`\`\`\`js\n${err}\`\`\``)
         }
     }
 }

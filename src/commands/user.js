@@ -71,6 +71,6 @@ module.exports = {
             if(!playing || playing.trim().length == 0) playing = "N/A"
             embed.description = `**${types[user.game.type]}**\n${playing}\n\n${user.game.details || ""}\n${user.game.type == 4 ? "" : user.game.state || ""}`
         }
-        await message.channel.createMessage({embed})
+        return await message.channel.createMessage({embed})
     }
 }

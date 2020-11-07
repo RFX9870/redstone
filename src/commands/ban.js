@@ -27,14 +27,14 @@ module.exports = {
                 ],
                 color: embColor
             }
-            await message.channel.createMessage({embed})
+            return await message.channel.createMessage({embed})
         }).catch(async err => {
             if(err.message == "Unknown User"){
-                await message.channel.createMessage("> :x: Пользователь не найден.")
+                return await message.channel.createMessage("> :x: Пользователь не найден.")
             }else if(err.message == "Missing Permissions"){
-                await message.channel.createMessage("> :x: Не удалось забанить этого участника.")
+                return await message.channel.createMessage("> :x: Не удалось забанить этого участника.")
             }else if(err.message.endsWith("is not snowflake.") || err.message.startsWith("404")){
-                await message.channel.createMessage("> :x: Пользователь не найден.")
+                return await message.channel.createMessage("> :x: Пользователь не найден.")
             }
         })
     }

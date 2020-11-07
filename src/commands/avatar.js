@@ -18,7 +18,7 @@ module.exports = {
                 image: {url:message.channel.guild.dynamicIconURL(format, size)},
                 color: embColor
             }   
-            await message.channel.createMessage({embed})
+            return await message.channel.createMessage({embed})
         }else{
             let user = message.mentions[0] || client.users.get(args[0]) || client.users.find(u => u.username == args.join(" ")) || client.users.find(u => u.tag == args.join(" ")) || message.guild.members.find(m => m.user.username.toLowerCase().startsWith(args.join(" ").toLowerCase()))
             if(!args[0]) user = message.author
@@ -41,7 +41,7 @@ module.exports = {
                 image: {url:user.dynamicAvatarURL(format, size)},
                 color: embColor
             }
-            await message.channel.createMessage({embed})
+            return await message.channel.createMessage({embed})
         }
     }
 }

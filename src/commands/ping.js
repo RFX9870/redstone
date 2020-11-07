@@ -36,7 +36,7 @@ module.exports = {
                 footer: {text: `${client.user.username} © RFX9870`, icon_url: client.user.avatarURL},
                 color: embColor
             }
-            await message.channel.createMessage({embed})
+            return await message.channel.createMessage({embed})
         }
     }
 }

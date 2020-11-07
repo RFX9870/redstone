@@ -6,9 +6,9 @@ module.exports = {
         const cmd = args.join(" ")
         try{
             const executed = require("child_process").execSync(cmd).toString()
-            await message.channel.createMessage(`\`\`\`sh\n${executed}\`\`\``)
+            return await message.channel.createMessage(`\`\`\`sh\n${executed}\`\`\``)
         }catch(err){
-            await message.channel.createMessage(`\`\`\`sh\n${err}\`\`\``)
+            return await message.channel.createMessage(`\`\`\`sh\n${err}\`\`\``)
         }
     }
 }

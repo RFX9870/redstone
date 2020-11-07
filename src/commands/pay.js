@@ -35,7 +35,7 @@ module.exports = {
         })
         await balReciever.update({value: Number(balReciever.value) + amount})
         await bal.update({value: Number(bal.value) - amount})
-        await message.channel.createEmbed({
+        return await message.channel.createEmbed({
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             fields: [
                 {

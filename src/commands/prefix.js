@@ -21,6 +21,6 @@ module.exports = {
             pr = await prefixes.findOne({where: {serverID: message.guild.id}})
         }
         await pr.update({value: newPrefix})
-        await message.channel.createMessage(`> :white_check_mark: Префикс изменен на \`${newPrefix.toLowerCase()}\``)
+        return await message.channel.createMessage(`> :white_check_mark: Префикс изменен на \`${newPrefix.toLowerCase()}\``)
     }
 }

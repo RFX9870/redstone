@@ -19,7 +19,7 @@ module.exports = {
         if(amount > Number(bal.value)) return await message.channel.createMessage(`> :x: **У вас нет столько валюты. Ваш баланс: ${Number(bal.value)} <:rscredit:767386949400657932>**`)
         if(win > 0.5){
             await bal.update({value: Number(bal.value) + amount})
-            await message.channel.createEmbed({
+            return await message.channel.createEmbed({
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
                 fields: [
                     {
@@ -31,7 +31,7 @@ module.exports = {
             })
         }else if(win.toString().startsWith("0.01")){
             await bal.update({value: Number(bal.value) + amount*4})
-            await message.channel.createEmbed({
+            return await message.channel.createEmbed({
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
                 fields: [
                     {
@@ -44,7 +44,7 @@ module.exports = {
         }
         else if(!win < 0.5){
             await bal.update({value: Number(bal.value) - amount})
-            await message.channel.createEmbed({
+            return await message.channel.createEmbed({
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
                 fields: [
                     {

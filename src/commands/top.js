@@ -19,7 +19,7 @@ module.exports = {
                 footer: {text: place > 0 ? `Ваша позиция в топе: ${place}, баланс: ${Number(bal.value)}` : `Ваш баланс: ${Number(bal.value)}`},
                 color: embColor
             }
-            await message.channel.createEmbed(embed)
+            return await message.channel.createEmbed(embed)
         }else if (args[0] == "-s"){
             if(!config.owners.includes(message.author.id)) return await this.execute(client, message, [], prefix)
             const guild = client.guilds.get(args[1])
@@ -32,7 +32,7 @@ module.exports = {
                 footer: {text: place > 0 ? `Ваша позиция в топе: ${place}, баланс: ${Number(bal.value)}` : `Ваш баланс: ${Number(bal.value)}`},
                 color: embColor
             }
-            await message.channel.createEmbed(embed)
+            return await message.channel.createEmbed(embed)
         }else{
             const top = balances.filter(b => message.guild.members.has(b.userID)).sort((a, b) => a.value-b.value).reverse()
             const place = top.map(e => e.userID).indexOf(message.author.id)+1
@@ -42,7 +42,7 @@ module.exports = {
                 footer: {text: place > 0 ? `Ваша позиция в топе: ${place}, баланс: ${Number(bal.value)}` : `Ваш баланс: ${Number(bal.value)}`},
                 color: embColor
             }
-            await message.channel.createEmbed(embed)
+            return await message.channel.createEmbed(embed)
         }
     }
 }

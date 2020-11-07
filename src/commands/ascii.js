@@ -9,9 +9,9 @@ module.exports = {
         let converted = require("child_process").execSync(`toilet -f mono12 '${text}'`).toString()
         if(!converted.length) return await message.channel.createMessage("> :x: **Не удалось конвертировать эту строку.**")
         if(converted.length > 1999) {
-            await message.channel.createMessage("", {name: "ascii.txt", file: Buffer.from(converted)})
+            return await message.channel.createMessage("", {name: "ascii.txt", file: Buffer.from(converted)})
         }else{
-            await message.channel.createMessage(`\`\`\`\n${converted}\`\`\``)
+            return await message.channel.createMessage(`\`\`\`\n${converted}\`\`\``)
         }
     },
     test(client){

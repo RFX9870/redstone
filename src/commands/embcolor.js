@@ -14,7 +14,7 @@ module.exports = {
         }
         if(args[0] == "reset"){
             await clr.destroy()
-            await message.channel.createEmbed({
+            return await message.channel.createEmbed({
                 author: {
                     name: `${message.author.username}#${message.author.discriminator}`,
                     icon_url: message.author.avatarURL
@@ -24,7 +24,7 @@ module.exports = {
             })
         }else if(args[0] == "random"){
             await clr.update({value: -1})
-            await message.channel.createEmbed({
+            return await message.channel.createEmbed({
                 author: {
                     name: `${message.author.username}#${message.author.discriminator}`,
                     icon_url: message.author.avatarURL
@@ -50,7 +50,7 @@ module.exports = {
                 while(clr.length < 6) clr = "0"+clr
                 return "#"+clr.toUpperCase()
             }
-            await message.channel.createEmbed({
+            return await message.channel.createEmbed({
                 author: {
                     name: `${message.author.username}#${message.author.discriminator}`,
                     icon_url: message.author.avatarURL

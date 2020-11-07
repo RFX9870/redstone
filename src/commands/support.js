@@ -16,6 +16,6 @@ module.exports = {
             image: {url: message.attachments.map(a=>a.url)[0]},
             color: config.embColor
         }})
-        await message.channel.createMessage("> :white_check_mark: **Ваше сообщение отправлено!**")
+        return await message.channel.createMessage("> :white_check_mark: **Ваше сообщение отправлено!**")
     }
 }

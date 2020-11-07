@@ -10,6 +10,7 @@ require("./util/depositInc")(client)
 
 client.once("ready", () => require("./events/ready")(client))
 .on("messageCreate", require("./events/messageCreate"))
+.on("messageUpdate", require("./events/messageUpdate"))
 .on("guildCreate", require("./events/guildCreate"))
 .on("guildDelete", require("./events/guildDelete"))
 .on("error", error => console.log(`WS Error: ${error.message}`))

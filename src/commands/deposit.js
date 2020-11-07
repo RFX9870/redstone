@@ -49,7 +49,7 @@ module.exports = {
                 color: embColor
             })
             await bal.update({value: bal.value+amount, deposit: bal.deposit-amount})
-            await message.channel.createEmbed(success_embed(bal.value, bal.deposit))
+            return await message.channel.createEmbed(success_embed(bal.value, bal.deposit))
         }else if(args[0] == "put"){
             if(amount > Number(bal.value)) return await message.channel.createEmbed({
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
@@ -62,14 +62,14 @@ module.exports = {
                 color: embColor
             })
             await bal.update({value: bal.value-amount, deposit: bal.deposit+amount})
-            await message.channel.createEmbed(success_embed(bal.value, bal.deposit))
+            return await message.channel.createEmbed(success_embed(bal.value, bal.deposit))
         }else if(args[0] == "help"){
             const embed = new Eris.Embed()
             .title("Депозит")
             .description("Вы можете внести <:rscredit:767386949400657932> на депозит.\nПри этом вы не сможете их использовать (переводить, ставить ставки и эта сумма не будет учитываться в топах.) до того, как вы их снимете.\nКаждые 4 часа будет начисляться 1% от суммы на депозите.")
             .field("Использование команды", `\`\`\`${prefix}${this.name} <wd или withdraw> <сумма> - снять деньги\n${prefix}${this.name} <put> <сумма> - положить деньги\`\`\``)
             .color(embColor)
-            await message.channel.createEmbed(embed)
+            return await message.channel.createEmbed(embed)
         }
     }
 }

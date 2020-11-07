@@ -16,14 +16,14 @@ module.exports = {
                 (/[A-Za-z0-9]/).test(word) ? result.push(convert(word.replace(/[.]/g, ""), 16).toString(36)) : result.push(word)
             })
             const decoded = result.join(" ")
-            await message.channel.createEmbed({
+            return await message.channel.createEmbed({
                 title: "Декодирование",
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
                 description: decoded,
                 color: embColor
             })
         }catch{
-            await message.channel.createMessage(`> :x: **Можно декодировать только hex**`)
+            return await message.channel.createMessage(`> :x: **Можно декодировать только hex**`)
         }
     }
 }

@@ -21,6 +21,6 @@ module.exports = {
             ],
             color: getRandomInt(0, 0xFFFFFF)
         }
-        await message.channel.createMessage({embed})
+        return await message.channel.createMessage({embed})
     }
 }

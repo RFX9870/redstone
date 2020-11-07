@@ -19,7 +19,7 @@ module.exports = {
             }
         })
         const encoded = result.join(" ")
-        await message.channel.createEmbed({
+        return await message.channel.createEmbed({
             title: "Кодирование",
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             description: encoded,

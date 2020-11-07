@@ -63,7 +63,7 @@ module.exports = {
             color: embColor,
             footer: {text: `v${config.version} © RFX9870`}
         }
-        await message.channel.createMessage({embed})
+        return await message.channel.createMessage({embed})
     }
     }
 }

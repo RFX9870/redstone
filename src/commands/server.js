@@ -59,6 +59,6 @@ module.exports = {
         .field("Функции", guild.features.map(f => features[f]).join(", ") || "Нет", true)
         .color(embColor)
         .thumbnail(guild.iconURL || "https://cdn.discordapp.com/embed/avatars/0.png")
-        await message.channel.createMessage({embed})
+        return await message.channel.createMessage({embed})
     }
 }

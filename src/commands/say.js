@@ -13,7 +13,7 @@ module.exports = {
             timestamp: new Date().toISOString(),
             color: embColor
         }
-        await message.channel.createMessage({embed})
-        await message.delete().catch(() => void 0)
+        return await message.channel.createMessage({embed})
+        return await message.delete().catch(() => void 0)
     }
 }
