@@ -9,7 +9,7 @@
   "author": "RFX9870",
   "license": "ISC",
   "dependencies": {
-    "eris": "^0.13.3",
+    "eris": "^0.14.0",
     "eris-additions": "^1.4.1",
     "node-fetch": "^2.6.1",
     "sequelize": "^6.3.5",

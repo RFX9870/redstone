@@ -1,11 +1,5 @@
 const strftime = require("strftime")
 
-const {VERSION: erisVersion} = require("eris")
-
-const {VERSION: sqlite3Version} = require("sqlite3").verbose()
-
-const {version: sequelizeVersion} = require("sequelize")
-
 module.exports = {
     name: "stats",
     usage: "[-v] (показывает расширенную статистику)",
@@ -32,7 +26,7 @@ module.exports = {
                 },
                 {
                     name: "Используемые пакеты",
-                    value: `**Node.js:** ${process.version}\n**Eris:** ${erisVersion}\n**sqlite3:** ${sqlite3Version}\n**Sequelize:** ${sequelizeVersion}`,
+                    value: `**Node.js:** ${process.version}\n**Eris:** ${require("eris").VERSION}\n**sqlite3:** ${require("sqlite3").VERSION}\n**Sequelize:** ${require("sequelize").version}`,
                 }
             ],
             footer: {text: `${client.user.username} v${config.version} © RFX9870`, icon_url: client.user.avatarURL},

@@ -27,9 +27,9 @@ module.exports = {
             try{
                 delete require.cache[require.resolve(`./${args[0]}`)]
                 client.commands.set(args[0], require(`./${args[0]}`))
-                return await message.channel.createMessage(`Команда ${args[0]} перезагружена!`)
+                return await message.channel.createMessage(`Команда \`${args[0]}\` перезагружена!`)
             }catch(error){
-                return await message.channel.createMessage(`Ошибка при перезагрузке ${args[0]}: \`\`${error.toString()}\`\``)
+                return await message.channel.createMessage(`Ошибка при перезагрузке \`${args[0]}\`: \`\`${error.toString()}\`\``)
             }
         }
     }
