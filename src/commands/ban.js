@@ -7,7 +7,7 @@ module.exports = {
     group: "mod",
     async execute(client, message, args, prefix, embColor){
         if(!args[0]) return await message.channel.createMessage(`> :x: **Используйте** \`${prefix}${this.name} ${this.usage}\``)
-        if(!message.member.permission.json.banMembers || !message.channel.guild.me.permission.json.banMembers) return await message.channel.createMessage("> :x: У бота или у вас недостаточно прав на бан.")
+        if(!message.member.permissions.json.banMembers || !message.channel.guild.me.permissions.json.banMembers) return await message.channel.createMessage("> :x: У бота или у вас недостаточно прав на бан.")
         let user = message.mentions[0] || client.users.get(args[0]) || args[0].replace(/[<@!>]/g, "")
         if(user.id == message.author.id) return await message.channel.createMessage("> :x: Нельзя забанить самого себя.")
         if(user.id == client.user.id) return await message.channel.createMessage("> :x: Бот не может забанить самого себя.")

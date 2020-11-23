@@ -10,10 +10,10 @@ module.exports = {
             .author(message.guild.name, message.guild.iconURL)
             .description(`Префикс на этом сервере - \`\`${prefix}\`\`\nИспользуйте \`${prefix}help\` для получения списка команд.`)
             .color(embColor)
-            if(message.member.permission.json.manageGuild) embed.footer(`Вы можете изменить префикс на сервере использовав ${prefix}${this.name} ${this.usage}`)
+            if(message.member.permissions.json.manageGuild) embed.footer(`Вы можете изменить префикс на сервере использовав ${prefix}${this.name} ${this.usage}`)
             return await message.channel.createEmbed(embed)
         }
-        if(!message.member.permission.json.manageGuild) return await message.channel.createMessage("> :x: Чтобы изменить префикс вы должны обладать правом \`Управлять сервером\`")
+        if(!message.member.permissions.json.manageGuild) return await message.channel.createMessage("> :x: Чтобы изменить префикс вы должны обладать правом \`Управлять сервером\`")
         if(newPrefix.length > 10) return await message.channel.createMessage("> :x: Префикс не может быть длиннее 10 символов.")
         let pr = await prefixes.findOne({where: {serverID: message.guild.id}})
         if(!pr) {

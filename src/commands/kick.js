@@ -5,7 +5,7 @@ module.exports = {
     group: "mod",
     async execute(client, message, args, prefix, embColor){
         if(!args[0]) return await message.channel.createMessage(`> :x: **Используйте** \`${prefix}${this.name} ${this.usage}\``)
-        if(!message.member.permission.json.kickMembers || !message.member.permission.json.banMembers || !message.channel.guild.me.permission.json.kickMembers) return await message.channel.createMessage("> :x: У бота или у вас недостаточно прав на кик.")
+        if(!message.member.permissions.json.kickMembers || !message.member.permissions.json.banMembers || !message.channel.guild.me.permissions.json.kickMembers) return await message.channel.createMessage("> :x: У бота или у вас недостаточно прав на кик.")
         let user = message.mentions[0] || message.channel.guild.members.get(args[0])
         if(!user) return await message.channel.createMessage("> :x: Участник не найден.")
         if(user.id == message.author.id) return await message.channel.createMessage("> :x: Нельзя кикнуть самого себя.")

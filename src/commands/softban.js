@@ -7,7 +7,7 @@ module.exports = {
     group: "mod",
     async execute(client, message, args, prefix, embColor){
         if(!args[0]) return await message.channel.createMessage(`> :x: **Используйте** \`${prefix}${this.name} ${this.usage}\``)
-        if(!message.member.permission.json.kickMembers || !message.member.permission.json.banMembers || !message.channel.guild.me.permission.json.banMembers) return await message.channel.createMessage("> :x: У бота или у вас недостаточно прав на бан/кик.")
+        if(!message.member.permissions.json.kickMembers || !message.member.permissions.json.banMembers || !message.channel.guild.me.permissions.json.banMembers) return await message.channel.createMessage("> :x: У бота или у вас недостаточно прав на бан/кик.")
         let user = message.mentions[0] || message.channel.guild.members.get(args[0])
         if(!user) return await message.channel.createMessage("> :x: Участник не найден.")
         if(user.id == message.author.id) return await message.channel.createMessage("> :x: Нельзя софтбанить самого себя.")
@@ -18,7 +18,7 @@ module.exports = {
         if(reason.length > 450) return await message.channel.createMessage("> :x: Указана слишком длинная причина.")
         if(message.channel.guild.members.has(user.id || user) && !message.member.highestRole.higherThan(message.channel.guild.members.get(user.id).highestRole) && message.channel.guild.ownerID != message.author.id) return await message.channel.createMessage("> :x: Нельзя софтбанить участника который выше вас.")
         message.channel.guild.banMember(user.id, days, encodeURI(`${message.author.username} | ${reason}`)).then(async () => {
-            return await message.channel.guild.unbanMember(user.id, encodeURI(`${message.author.username} | ${reason} (softban)`))
+            await message.channel.guild.unbanMember(user.id, encodeURI(`${message.author.username} | ${reason} (softban)`))
             const embed = {
                 title: message.author.tag,
                 fields: [
