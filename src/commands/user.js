@@ -70,7 +70,7 @@ module.exports = {
             }
             if(!playing || playing.trim().length == 0) playing = "N/A"
             if(user.game.type == 4 && !user.game.state && emoji){
-                playing = `${emoji} ${user.activities[1] ? `${types[user.activities[1].type]} **${user.activities[1].name}**\n\n${user.activities[1].details || ""}\n${user.activities[1].state}` : ""}`
+                playing = `${emoji} ${user.activities[1] ? `${types[user.activities[1].type]} **${user.activities[1].name}**\n\n${user.activities[1].details || ""}\n${user.activities[1].state || ""}` : ""}`
             }
             if(user.game.type == 4 && user.game.state){
                 playing = `${emoji || ""} ${user.game.state}`
