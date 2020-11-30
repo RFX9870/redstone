@@ -15,5 +15,6 @@ client.once("ready", () => require("./events/ready")(client))
 .on("guildDelete", require("./events/guildDelete"))
 .on("error", error => console.log(`WS Error: ${error.message}`))
 process.on("unhandledRejection", async reason => await require("./events/unhandledRejection")(reason, client))
+.on("uncaughtException", async error => await require("./events/uncaughtException")(error, client))
 
 client.connect()
