@@ -56,3 +56,5 @@ module.exports = async function(message){
     }
     if(message.content == client.user.mention || message.content == message.guild.me.mention) await client.commands.get("prefix").execute(client, message, [], usedPrefix, usedColor)
 }
+
+module.exports.reloadable = true

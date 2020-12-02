@@ -5,3 +5,5 @@ module.exports = async function(guild){
         color: config.embColor
     }]})
 }
+
+module.exports.reloadable = true
