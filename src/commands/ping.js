@@ -24,7 +24,7 @@ module.exports = {
                 footer: {text: `${client.user.username} © RFX9870`, icon_url: client.user.avatarURL},
                 color: embColor
             }
-            msg.edit({content: "", embed})
+            return await msg.edit({content: "", embed})
         }else{ 
             const embed = {
                 fields: [

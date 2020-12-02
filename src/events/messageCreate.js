@@ -15,7 +15,9 @@ module.exports = async function(message){
         if(!command) return
         if(command.ownerOnly && !config.owners.includes(message.author.id)) return
         const args = message.content.slice(usedPrefix.length + cmdName.length).trim().split(" ")
-        command.execute(client, message, args, usedPrefix, usedColor).catch(async error => {
+        try{
+            var executed = await command.execute(client, message, args, usedPrefix, usedColor)
+        }catch(error){
             const embed = {
                 title: "Произошла ошибка при выполнении команды.",
                 description: `\`\`\`js\n${error}\`\`\``,
@@ -28,27 +30,29 @@ module.exports = async function(message){
                 fields: [{name: "Сообщение", value: message.content}],
                 color: config.embColor
             }]})
-        })
-        const embed = {
-            title: `Использована команда ${command.name}`,
-            description: message.content,
-            fields: [
-                {
-                    name: "Пользователь",
-                    value: `${message.author.username}#${message.author.discriminator} (${message.author.id})`
-                },
-                {
-                    name: "Сервер",
-                    value: `${message.channel.guild.name} (${message.channel.guild.id})`
-                },
-                {
-                    name: "Канал",
-                    value: `${message.channel.name} (${message.channel.id})`
-                }
-            ],
-            color: config.embColor
+        }finally{
+            const embed = {
+                title: `Использована команда ${command.name}`,
+                description: message.content,
+                fields: [
+                    {
+                        name: "Пользователь",
+                        value: `${message.author.username}#${message.author.discriminator} (${message.author.id})`
+                    },
+                    {
+                        name: "Сервер",
+                        value: `${message.channel.guild.name} (${message.channel.guild.id})`
+                    },
+                    {
+                        name: "Канал",
+                        value: `${message.channel.name} (${message.channel.id})`
+                    }
+                ],
+                color: config.embColor
+            }
+            if(config.logger.enabled) await client.executeWebhook(config.logger.id, config.logger.token, {embeds: [embed]})
+            if(executed instanceof Eris.Message) message.author.cmdUses.set(message.timestamp, executed)
         }
-        if(config.logger.enabled) await client.executeWebhook(config.logger.id, config.logger.token, {embeds: [embed]})
     }
     if(message.content == client.user.mention || message.content == message.guild.me.mention) await client.commands.get("prefix").execute(client, message, [], usedPrefix, usedColor)
 }
