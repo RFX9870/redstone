@@ -34,7 +34,7 @@ module.exports = {
                 return await message.channel.createMessage({embed})
             }
             case "splash":{
-                if(!message.channel.guild.splash) return await message.channel.createMessage("> :x: **У этого сервера нет баннера.**")
+                if(!message.channel.guild.splash) return await message.channel.createMessage("> :x: **У этого сервера нет фона приглашения.**")
                 const embed = {
                     author: {
                         name: `Фон приглашения сервера ${message.channel.guild.name}`,
