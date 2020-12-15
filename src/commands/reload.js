@@ -49,7 +49,7 @@ module.exports = {
                 try{
                     delete require.cache[require.resolve(`../JSON/config.json`)]
                     global.config = require("../JSON/config.json")
-                    await message.channel.createMessage("Настройки перезагружены!")
+                    return await message.channel.createMessage("Настройки перезагружены!")
                 }catch(error){
                     return await message.channel.createEmbed({
                         title: `Ошибка при перезагрузке настроек`,
