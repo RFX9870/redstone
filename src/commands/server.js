@@ -59,6 +59,7 @@ module.exports = {
         .field("Функции", guild.features.map(f => features[f]).join(", ") || "Нет", true)
         .color(embColor)
         .thumbnail(guild.iconURL || "https://cdn.discordapp.com/embed/avatars/0.png")
+        if(guild.premiumSubscriptionCount > 0) embed.description(`${guild.premiumTier} уровень, ${guild.premiumSubscriptionCount} бустов`)
         return await message.channel.createMessage({embed})
     }
 }

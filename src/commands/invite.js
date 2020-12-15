@@ -65,6 +65,7 @@ module.exports = {
                     .thumbnail(guild.iconURL || "https://cdn.discordapp.com/embed/avatars/0.png")
                     if(invite.channel) embed.footer(`Канал: #${invite.channel.name}`)
                     if(invite.inviter) embed.author(`Приглашающий: ${invite.inviter.tag}`, invite.inviter.avatarURL)
+                    if(guild.premiumSubscriptionCount > 0) embed.description(`${guild.premiumTier} уровень, ${guild.premiumSubscriptionCount} бустов`)
                     return await message.channel.createEmbed(embed)
         }).catch(async error => {
             if(error instanceof Eris.DiscordRESTError) return await message.channel.createMessage("> :x: Такого приглашения не существует.")

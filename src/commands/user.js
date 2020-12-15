@@ -54,8 +54,20 @@ module.exports = {
         .field("Топы по балансу", `Глобальный топ: ${place_g ? `${place_g} место` : "не отображается в топе"}\nТоп сервера: ${member ? `${place_s ? `${place_s} место` : "не отображается в топе"}` : "не доступно"}`, true)
         .field("Роли", member ? member.roles.map(r => message.guild.roles.get(r)).sort((a, b) => a.position - b.position).map(r => `<@&${r.id}>`).reverse().join(", ") || "Нет ролей" : "Не доступно", true)
         .field("Цвет", member ? color(member) : "Не доступно", true)
-        .thumbnail(user.avatarURL || user.defaultAvatarURL)
+        embed.thumbnail(user.avatarURL || user.defaultAvatarURL)
         .color(member ? member.color < 0xffffff ? member.color || embColor : 0xfffffe : embColor)
+        if(member) {
+            const index = message.guild.members.map(m=>m).sort((a,b) => a.joinedAt-b.joinedAt).indexOf(member)+1
+            const ending = () => {
+                if(index.toString().endsWith(2) && index != 12) return "ой"
+                if(index.toString().endsWith(3) && index != 13) return "ий"
+                if(index.toString().endsWith(6) && index != 16) return "ой"
+                if(index.toString().endsWith(7) && index != 17) return "ой"
+                if(index.toString().endsWith(8) && index != 18) return "ой"
+                return "ый"
+            }
+            embed.footer(`${index}-${ending()} участник сервера`)
+        }
         if(user.game) {
             let playing = user.game.type == 4 ? user.game.state || "" : user.game.name
             let emoji
