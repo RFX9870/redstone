@@ -7,6 +7,6 @@ module.exports = function(client){
     fn()
     setTimeout(() => {
         fn()
-        setInterval(fn, 3600000)
+        client.countdown = setInterval(fn, 3600000)
     }, endh * 60000)
 }
