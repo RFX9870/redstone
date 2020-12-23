@@ -30,7 +30,9 @@ module.exports = {
                 BANNER: "баннер",
                 PUBLIC_DISABLED: "не может быть публичным",
                 WELCOME_SCREEN_ENABLED: "экран приветствия",
-                COMMUNITY: "сервер сообщества"
+                COMMUNITY: "сервер сообщества",
+                MEMBER_VERIFICATION_GATE_ENABLED: "отбор участников",
+                PREVIEW_ENABLED: "превью сервера"
             }
             const embed = new Eris.Embed()
             .title(guild.name)
