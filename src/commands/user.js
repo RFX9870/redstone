@@ -23,6 +23,7 @@ module.exports = {
             "idle": "Не активен",
             "dnd": "Не беспокоить",
             "offline": "Не в сети",
+            "invisible": "Невидимый",
             undefined: "Не в сети"
         }
         const now = Date.now()
