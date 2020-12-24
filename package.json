@@ -1,13 +1,13 @@
 {
   "name": "redstone",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.8.4",
+  "description": "Бот с экономикой и модерацией.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "RFX9870",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "eris": "^0.14.0",
     "eris-additions": "^1.4.1",
@@ -15,5 +15,14 @@
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.0",
     "strftime": "^0.10.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RFX9870/redstone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RFX9870/redstone/issues"
+  },
+  "homepage": "https://github.com/RFX9870/redstone#readme"
 }
