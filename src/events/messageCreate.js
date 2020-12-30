@@ -7,6 +7,7 @@ module.exports = async function(message){
     const color = await embColors.findOne({where: {userID: message.author.id}})
     let usedColor = color ? color.value : config.embColor
     if(usedColor == -1) usedColor = Math.floor(Math.random() * 0xffffff)
+    if(usedColor == -2) usedColor = config.embColor
     if(message.content.toLowerCase().startsWith(usedPrefix)){
         if(!message.channel.guild.me.permission.json.embedLinks) return await message.channel.createMessage("У бота отсутствует право `встраивать ссылки`")
         if(!message.channel.guild.me.permission.json.sendMessages) return
