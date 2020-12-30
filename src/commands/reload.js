@@ -36,14 +36,14 @@ module.exports = {
                             client.on(file, require(`../events/${file}`))
                         }
                     }catch(error){
-                        await message.channel.createEmbed({
+                        return await message.channel.createEmbed({
                             title: `Ошибка при перезагрузке ${file}`,
                             description: `\`\`\`js\n${error}\`\`\``,
                             color: embColor
                         })
                     }
                 }
-                await msg.edit(`Эвенты перезагружены!`)
+                return await msg.edit(`Эвенты перезагружены!`)
             }
             case "config":{
                 try{
