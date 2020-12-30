@@ -5,7 +5,7 @@ module.exports = {
     usage: "[ID или @упоминание]. Если не указано, то будет выведена информация о Вас.",
     description: "показывает информацию о пользователе.",
     group: "info",
-    aliases: ["userinfo"],
+    aliases: ["userinfo", "u"],
     async execute(client, message, args, prefix, embColor){
         let user = message.mentions[0] || client.users.get(args[0]) || client.users.find(u => u.username == args.join(" ")) || client.users.find(u => u.tag == args.join(" ")) || message.guild.members.find(m => m.user.username.toLowerCase().startsWith(args.join(" ").toLowerCase()))
         if(!args[0]) user = message.author

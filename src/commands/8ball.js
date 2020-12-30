@@ -3,6 +3,7 @@ module.exports = {
     usage: "<вопрос>",
     description: "задать вопрос магическому шару.",
     group: "fun",
+    aliases: ["8b"],
     async execute(client, message, args, prefix, embColor){
         const thing = args.join(" ")
         if(!thing.length) return await message.channel.createMessage(`> :x: **Используйте \`${prefix}${this.name} ${this.usage}\`**`)

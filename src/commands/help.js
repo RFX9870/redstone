@@ -2,6 +2,7 @@ module.exports = {
     name: "help",
     usage: "[команда]",
     description: "показывает список команд или информацию о команде.",
+    aliases: ["h"],
     async execute(client, message, args, prefix, embColor){
         if(args[0]){
             const cmd = client.commands.filter(c => c.group != "dev").find(c => c.name == args[0]) || client.commands.filter(c => c.group != "dev").find(c => c.aliases && c.aliases.includes(args[0]))

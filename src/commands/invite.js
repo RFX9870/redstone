@@ -5,9 +5,13 @@ module.exports = {
     usage: "<инвайт-код/ссылка>",
     description: "показывает информацию о приглашении.",
     group: "info",
-    aliases: ["getinvite"],
+    aliases: ["getinvite", "inviteinfo"],
     async execute(client, message, args, prefix, embColor){
-        if(!args[0]) return await message.channel.createMessage(`> :x: **Использование:** \`${prefix}${this.name} ${this.usage}\``)
+        if(!args[0]) return await message.channel.createEmbed({
+            description:` Использование: \`${prefix}${this.name} ${this.usage}\``,
+            footer: {text: `Ищете ссылки? Используйте ${prefix}links`},
+            color: embColor
+        })
         const inv = args[0].slice(args[0].lastIndexOf("/")+1)
         client.getInvite(inv, true).then(async invite => {
             const {guild} = invite

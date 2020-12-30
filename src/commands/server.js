@@ -4,7 +4,7 @@ module.exports = {
     name: "server",
     description: "показывает информацию о сервере, на котором Вы сейчас находитесь.",
     group: "info",
-    aliases: ["serverinfo"],
+    aliases: ["serverinfo", "s"],
     async execute(client, message, args, prefix, embColor){
         const guild = config.owners.includes(message.author.id) ? client.guilds.get(args[0]) || message.guild : message.guild
         const now = Date.now()

@@ -2,6 +2,7 @@ module.exports = {
     name: "links",
     description: "ссылки.",
     group: "info",
+    aliases: ["info"],
     async execute(client, message, args, prefix, embColor){
         const embed = {
             fields: [
