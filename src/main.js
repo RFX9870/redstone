@@ -1,6 +1,7 @@
 global.Eris = require("eris-additions")(require("eris"))
 process.env.TZ = "Etc/Greenwich"
 global.config = require("./JSON/config.json")
+global.package = require("../package.json")
 const client = new Eris.Client(config.token, {getAllUsers: true, restMode: true, defaultImageSize: 512, defaultImageFormat: "png"})
 
 require("./util/commandLoader")(client)

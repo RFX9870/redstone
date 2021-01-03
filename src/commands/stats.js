@@ -34,7 +34,7 @@ module.exports = {
                     value: `**Node.js:** ${process.version}\n**Eris:** ${require("eris").VERSION}\n**sqlite3:** ${require("sqlite3").VERSION}\n**Sequelize:** ${require("sequelize").version}`,
                 }
             ],
-            footer: {text: `${client.user.username} v${config.version} ${commit ? `(${commit})` : ""} © RFX9870`, icon_url: client.user.avatarURL},
+            footer: {text: `${client.user.username} v${package.version} ${commit ? `(${commit})` : ""} © RFX9870`, icon_url: client.user.avatarURL},
             color: embColor
         }
         if(args[0] == "-v") {
