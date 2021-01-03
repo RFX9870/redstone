@@ -58,6 +58,19 @@ module.exports = {
                     })
                 }
             }
+            case "package":{
+                try{
+                    delete require.cache[require.resolve("../../package.json")]
+                    global.package = require("../../package.json")
+                    return await message.channel.createMessage("package.json перезагружен!")
+                }catch(error){
+                    return await message.channel.createEmbed({
+                        title: `Ошибка при перезагрузке package.json`,
+                        description: `\`\`\`js\n${error}\`\`\``,
+                        color: embColor
+                    })
+                }
+            }
             default:{
                 if(!client.commands.has(args[0])) return await message.channel.createMessage("Такой команды нет")
                 try{
