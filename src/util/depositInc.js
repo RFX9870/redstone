@@ -1,6 +1,6 @@
 module.exports = function(client){
     console.log("DepositInc - loaded!")
-    setInterval(async() => {
+    client.deposits = setInterval(async() => {
         const balances = (await balance.findAll()).filter(b => b.deposit != 0)
         for(const bal of balances){
             let sum = Math.round(bal.deposit*0.01)
