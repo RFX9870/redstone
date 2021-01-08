@@ -1,6 +1,6 @@
 {
   "name": "redstone",
-  "version": "1.8.7",
+  "version": "1.8.8",
   "description": "Бот с экономикой и модерацией.",
   "main": "index.js",
   "scripts": {

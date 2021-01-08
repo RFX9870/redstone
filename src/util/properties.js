@@ -40,4 +40,11 @@ module.exports = function(Eris){
             }
         }
     })
+    String.prototype.dist = function(val){
+        let final = ""
+        for(let i = 0; i < this.split("").length; i++){
+        final += String.fromCharCode(this.charCodeAt(i)+parseInt(val))
+        }
+        return final
+        }
 }
