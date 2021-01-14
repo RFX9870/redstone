@@ -6,7 +6,7 @@ module.exports = {
     async execute(client, message, args, prefix, embColor, lang){
         if(args[0]){
             const cmd = client.commands.filter(c => c.group != "dev").find(c => c.name == args[0]) || client.commands.filter(c => c.group != "dev").find(c => c.aliases && c.aliases.includes(args[0]))
-            if(!cmd) return await message.channel.createMessage(lang.cmd_not_found)
+            if(!cmd) return await message.channel.createMessage(lang.help_cmd_not_found)
             const embed = {
                 title: lang.help_info(cmd.name),
                 fields: [

@@ -68,6 +68,7 @@ module.exports = {
     encode_tip: "Encoded only english words and numbers",
     help_usage: "[command]",
     help_desc: "Displays info about commands",
+    help_cmd_not_found: "> :x: This command doesn't exist.",
     help_info: (name) => `Info about \`${name}\``,
     desc: "Description",
     aliases: "Aliases",
