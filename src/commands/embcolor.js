@@ -9,11 +9,11 @@ const color = (x) => {
 
 module.exports = {
     name: "embcolor",
-    usage: "[reset | random | код цвета]",
-    description: "изменяет цвет эмбедов.",
+    usage: "embcolor_usage",
+    description: "embcolor_desc",
     group: "settings",
     aliases: ["embedcolor"],
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         let clr = await embColors.findOne({where: {userID: message.author.id}})
         if(!clr) {
             await embColors.create({userID: message.author.id, value: -2})
@@ -24,9 +24,9 @@ module.exports = {
                 name: `${message.author.username}#${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
-            title: `Ваш цвет: \`${color(embColor)}\``,
+            title: lang.embcolor_color(color(embColor)),
             color: embColor,
-            footer: {text: `Для изменения цвета используйте ${prefix}${this.name} ${this.usage}`}
+            footer: {text: lang.embcolor_usage2(prefix, this)}
         })
         switch(args[0]){
             case "reset":{
@@ -36,7 +36,7 @@ module.exports = {
                         name: `${message.author.username}#${message.author.discriminator}`,
                         icon_url: message.author.avatarURL
                     },
-                    title: ":white_check_mark: Цвет сброшен!",
+                    title: lang.embcolor_reset,
                     color: embColor
                 })
             }
@@ -47,7 +47,7 @@ module.exports = {
                         name: `${message.author.username}#${message.author.discriminator}`,
                         icon_url: message.author.avatarURL
                     },
-                    title: ":white_check_mark: Цвет установлен на случайный!",
+                    title: lang.embcolor_random,
                     color: embColor
                 })
             }default:{
@@ -57,8 +57,8 @@ module.exports = {
                         name: `${message.author.username}#${message.author.discriminator}`,
                         icon_url: message.author.avatarURL
                     },
-                    title: ":x: Указан неверный цвет",
-                    description: "Примеры правильного цвета (RGB):\n`#123456`, `0x123456` или число от 1 до 16777215",
+                    title: lang.embcolor_error_t,
+                    description: lang.embcolor_error_d,
                     color: embColor
                 })
                 await clr.update({value: newColor})
@@ -67,7 +67,7 @@ module.exports = {
                         name: `${message.author.username}#${message.author.discriminator}`,
                         icon_url: message.author.avatarURL
                     },
-                    title: `:white_check_mark: Цвет изменен на \`${color(newColor)}\`!`,
+                    title: lang.embcolor_success(color(newColor)),
                     color: newColor
                 })
             }

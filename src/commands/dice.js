@@ -1,13 +1,15 @@
+const { dice_win } = require("../langs/en")
+
 function isNumber(n){ return !isNaN(parseFloat(n)) && !isNaN(n - 0)}
 
 module.exports = {
     name: "dice",
-    usage: "<ставка>",
-    description: "позволяет делать ставки в <:rscredit:767386949400657932>.",
+    usage: "dice_usage",
+    description: "dice_desc",
+    needArgs: true,
     group: "balance",
     aliases: ["casino"],
-    async execute(client, message, args, prefix, embColor){
-        if(!args[0]) return await message.channel.createMessage(`> :x: **Используйте** \`${prefix}${this.name} ${this.usage}\``)
+    async execute(client, message, args, prefix, embColor, lang){
         const win = Math.random()
         let bal = await balance.findOne({where: {userID: message.author.id}})
         if(!bal) {
@@ -15,16 +17,16 @@ module.exports = {
             bal = await balance.findOne({where: {userID: message.author.id}})
         }
         const amount = parseInt(args[0])
-        if(!isNumber(amount) || amount <= 0) return await message.channel.createMessage(`> :x: **Введена неверная ставка.**`)
-        if(amount > Number(bal.value)) return await message.channel.createMessage(`> :x: **У вас нет столько валюты. Ваш баланс: ${Number(bal.value)} <:rscredit:767386949400657932>**`)
+        if(!isNumber(amount) || amount <= 0) return await message.channel.createMessage(lang.dice_invalid_bet)
+        if(amount > Number(bal.value)) return await message.channel.createMessage(lang.no_bal(bal.value))
         if(win > 0.5){
             await bal.update({value: Number(bal.value) + amount})
             return await message.channel.createEmbed({
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
                 fields: [
                     {
-                        name: "Казино",
-                        value: `:tada: **Вы выиграли ${amount}** <:rscredit:767386949400657932>. Ваш новый баланс: ${Number(bal.value)} <:rscredit:767386949400657932>`
+                        name: lang.casino,
+                        value: lang.dice_win(amount, bal.value)
                     }
                 ],
                 color: embColor
@@ -35,8 +37,8 @@ module.exports = {
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
                 fields: [
                     {
-                        name: "Казино",
-                        value: `:tada::tada::tada: **Вы получили Х4 выигрыш! Ваш новый баланс: ${Number(bal.value)} <:rscredit:767386949400657932>**`
+                        name: lang.casino,
+                        value: lang.dice_win_x4(amount, bal.value)
                     }
                 ],
                 color: embColor,
@@ -48,8 +50,8 @@ module.exports = {
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
                 fields: [
                     {
-                        name: "Казино",
-                        value: `**Вы проиграли ${amount}** <:rscredit:767386949400657932>. Ваш новый баланс: ${Number(bal.value)} <:rscredit:767386949400657932>`
+                        name: lang.casino,
+                        value: lang.dice_lose(amount, bal.value)
                     }
                 ],
                 color: embColor

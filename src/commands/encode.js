@@ -5,11 +5,11 @@ function convert(value, radix) {
 
 module.exports = {
     name: "encode",
-    usage: "<текст>",
-    description: "переводит английский текст в hex.",
+    usage: "encode_usage",
+    description: "encode_desc",
+    needArgs: true,
     group: "fun",
-    async execute(client, message, args, prefix, embColor){
-        if(!args[0]) return await message.channel.createMessage(`> :x: **Используйте** \`${prefix}${this.name} ${this.usage}\``)
+    async execute(client, message, args, prefix, embColor, lang){
         const result = []
         args.forEach(word => {
             try{
@@ -20,10 +20,10 @@ module.exports = {
         })
         const encoded = result.join(" ")
         return await message.channel.createEmbed({
-            title: "Кодирование",
+            title: lang.encode,
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             description: encoded,
-            footer: {text: "Кодируются только английские буквы и цифры"},
+            footer: {text: lang.encode_tip},
             color: embColor
         })
     }

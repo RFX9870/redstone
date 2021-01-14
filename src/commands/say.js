@@ -1,11 +1,11 @@
 module.exports = {
     name: "say",
-    usage: "<текст>",
-    description: "отправляет сообщение от имени бота.",
+    usage: "say_usage",
+    description: "say_desc",
     group: "other",
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         const say = args.join(" ")
-        if(!say && !message.attachments.length) return await message.channel.createMessage(`> :x: **Используйте** \`${prefix}${this.name} ${this.usage}\``)
+        if(!say && !message.attachments.length) return await message.channel.createMessage(lang.cmd_usage(prefix, this))
         const embed = {
             description: say || "",
             image: {url: message.attachments.map(a => a.url)[0]},

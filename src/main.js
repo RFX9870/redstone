@@ -5,6 +5,7 @@ global.package = require("../package.json")
 const client = new Eris.Client(config.token, {getAllUsers: true, restMode: true, defaultImageSize: 512, defaultImageFormat: "png"})
 
 require("./util/commandLoader")(client)
+require("./util/langLoader")(client)
 require("./util/properties")(Eris)
 require("./util/database")
 require("./util/depositInc")(client)

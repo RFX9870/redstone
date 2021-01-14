@@ -1,23 +1,23 @@
 module.exports = {
     name: "ping",
-    usage: "[-v] (показать скорость отправки)",
-    description: "показывает пинг бота.",
+    usage: "ping_usage",
+    description: "ping_desc",
     group: "info",
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         if(args[0] == "-v"){
             const now = Date.now()
             const msg = await message.channel.createMessage("...")
             const embed = {
-                title: "Пинг",
+                title: lang.ping,
                 fields: [
                     {
                         name: "API",
-                        value: `${message.channel.guild.shard.latency} мсек.`,
+                        value: `${message.channel.guild.shard.latency} ${lang.ms}`,
                         inline: true
                     },
                     {
-                        name: "Бот",
-                        value: `${Date.now() - now} мсек.`,
+                        name: lang.bot,
+                        value: `${Date.now() - now} ${lang.ms}`,
                         inline: true
                     }
                 ],
@@ -29,8 +29,8 @@ module.exports = {
             const embed = {
                 fields: [
                     {
-                        name: "Пинг",
-                        value: `${message.channel.guild.shard.latency} мсек.`
+                        name: lang.ping,
+                        value: `${message.channel.guild.shard.latency} ${lang.ms}`
                     }
                 ],
                 footer: {text: `${client.user.username} © RFX9870`, icon_url: client.user.avatarURL},

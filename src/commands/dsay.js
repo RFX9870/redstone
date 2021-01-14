@@ -6,12 +6,13 @@ function getname(url) {
 
 module.exports = {
     name: "dsay",
+    usage: "dsay_usage",
     group: "dev",
     aliases: ["devsay"],
     ownerOnly: true,
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         const say = args.join(" ")
-        if(!say && !message.attachments.length) return await message.channel.createMessage(`> :x: **Используйте** \`${prefix}${this.name} ${this.usage}\``)
+        if(!say && !message.attachments.length) return await message.channel.createMessage(lang.cmd_usage(prefix, this))
         const files = []
         if(message.attachments.length) for(const attachment of message.attachments){
             const fname = getname(attachment.url)

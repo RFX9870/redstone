@@ -1,9 +1,9 @@
 module.exports = {
     name: "top",
-    usage: "[-g] (глобальный топ)",
-    description: "топ-10 пользователей по балансу.",
+    usage: "top_usage",
+    description: "top_desc",
     group: "balance",
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         let bal = await balance.findOne({where: {userID: message.author.id}})
         if(!bal) {
             await balance.create({userID: message.author.id, value: 0, deposit: 0})
@@ -14,22 +14,9 @@ module.exports = {
             const top = balances.sort((a, b) => a.value-b.value).reverse()
             const place = top.map(e => e.userID).indexOf(message.author.id)+1
             const embed = {
-                title: "Глобальный топ",
+                title: lang.top_global,
                 description: top.map((b, i) => `${i+1}. ${client.users.has(b.userID) ? client.users.get(b.userID).tag : b.userID} - ${b.value} <:rscredit:767386949400657932>`).slice(0, 10).join("\n"),
-                footer: {text: place > 0 ? `Ваша позиция в топе: ${place}, баланс: ${Number(bal.value)}` : `Ваш баланс: ${Number(bal.value)}`},
-                color: embColor
-            }
-            return await message.channel.createEmbed(embed)
-        }else if (args[0] == "-s"){
-            if(!config.owners.includes(message.author.id)) return await this.execute(client, message, [], prefix)
-            const guild = client.guilds.get(args[1])
-            if(!guild) return await message.channel.createMessage("> :x: **Сервер не найден**")
-            const top = balances.filter(b => guild.members.has(b.userID)).sort((a, b) => a.value-b.value).reverse()
-            const place = top.map(e => e.userID).indexOf(message.author.id)+1
-            const embed = {
-                title: `Топ сервера ${guild.name}`,
-                description: top.map((b, i) => `${i+1}. ${client.users.has(b.userID) ? client.users.get(b.userID).tag : b.userID} - ${b.value} <:rscredit:767386949400657932>`).slice(0, 10).join("\n"),
-                footer: {text: place > 0 ? `Ваша позиция в топе: ${place}, баланс: ${Number(bal.value)}` : `Ваш баланс: ${Number(bal.value)}`},
+                footer: {text: place > 0 ? lang.top_place(place, bal.value) : lang.top_balance(bal.value)},
                 color: embColor
             }
             return await message.channel.createEmbed(embed)
@@ -37,9 +24,9 @@ module.exports = {
             const top = balances.filter(b => message.guild.members.has(b.userID)).sort((a, b) => a.value-b.value).reverse()
             const place = top.map(e => e.userID).indexOf(message.author.id)+1
             const embed = {
-                title: `Топ сервера ${message.guild.name}`,
+                title: lang.top_server(message.guild.name),
                 description: top.map((b, i) => `${i+1}. ${client.users.has(b.userID) ? client.users.get(b.userID).tag : b.userID} - ${b.value} <:rscredit:767386949400657932>`).slice(0, 10).join("\n"),
-                footer: {text: place > 0 ? `Ваша позиция в топе: ${place}, баланс: ${Number(bal.value)}` : `Ваш баланс: ${Number(bal.value)}`},
+                footer: {text: place > 0 ? lang.top_place(place, bal.value) : lang.top_balance(bal.value)},
                 color: embColor
             }
             return await message.channel.createEmbed(embed)

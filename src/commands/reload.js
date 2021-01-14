@@ -2,10 +2,9 @@ module.exports = {
     name: "reload",
     group: "dev",
     ownerOnly: true,
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         switch(args[0]){
             case "all":{
-                const msg = await message.channel.createMessage(`Перезагрузка команд...`)
                 const fs = require("fs")
                 client.commands.clear()
                 const commandFiles = fs.readdirSync("./src/commands").filter(f=>f.endsWith(".js")).map(f=>f.replace(".js", ""))
@@ -22,10 +21,9 @@ module.exports = {
                         })
                     }
                 }
-                return await msg.edit(`Команды перезагружены!`)
+                return await message.addReaction("✅")
             }
             case "events":{
-                const msg = await message.channel.createMessage(`Перезагрузка эвентов...`)
                 const fs = require("fs")
                 const listenerFiles = fs.readdirSync("./src/events").filter(f=>f.endsWith(".js")).map(f=>f.replace(".js", ""))
                 for(const file of listenerFiles){
@@ -43,13 +41,13 @@ module.exports = {
                         })
                     }
                 }
-                return await msg.edit(`Эвенты перезагружены!`)
+                return await message.addReaction("✅")
             }
             case "config":{
                 try{
                     delete require.cache[require.resolve(`../JSON/config.json`)]
                     global.config = require("../JSON/config.json")
-                    return await message.channel.createMessage("Настройки перезагружены!")
+                    return await message.addReaction("✅")
                 }catch(error){
                     return await message.channel.createEmbed({
                         title: `Ошибка при перезагрузке настроек`,
@@ -62,7 +60,7 @@ module.exports = {
                 try{
                     delete require.cache[require.resolve("../../package.json")]
                     global.package = require("../../package.json")
-                    return await message.channel.createMessage("package.json перезагружен!")
+                    return await message.addReaction("✅")
                 }catch(error){
                     return await message.channel.createEmbed({
                         title: `Ошибка при перезагрузке package.json`,
@@ -71,13 +69,32 @@ module.exports = {
                     })
                 }
             }
+            case "langs":{
+                const fs = require("fs")
+                client.langs.clear()
+                const langFiles = fs.readdirSync("./src/langs").filter(f=>f.endsWith(".js")).map(f=>f.replace(".js", ""))
+                for(const lang of langFiles){
+                    try{
+                        delete require.cache[require.resolve(`../langs/${lang}`)]
+                        const lng = require(`../langs/${lang}`)
+                        client.langs.set(lng.name, lng)
+                    }catch(error){
+                        return await message.channel.createEmbed({
+                            title: `Ошибка при перезагрузке ${lang.name}`,
+                            description: `\`\`\`js\n${error}\`\`\``,
+                            color: embColor
+                        })
+                    }
+                }
+                return await message.addReaction("✅")
+            }
             default:{
-                if(!client.commands.has(args[0])) return await message.channel.createMessage("Такой команды нет")
+                if(!client.commands.has(args[0])) return await message.addReaction("❌")
                 try{
                     delete require.cache[require.resolve(`./${args[0]}`)]
                     const command = require(`./${args[0]}`)
                     client.commands.set(command.name, command)
-                    return await message.channel.createMessage(`Команда \`${command.name}\` перезагружена!`)
+                    return await message.addReaction("✅")
                 }catch(error){
                     return await message.channel.createEmbed({
                         title: `Ошибка при перезагрузке ${args[0]}`,

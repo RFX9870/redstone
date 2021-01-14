@@ -1,26 +1,26 @@
 module.exports = {
     name: "help",
-    usage: "[команда]",
-    description: "показывает список команд или информацию о команде.",
+    usage: "help_usage",
+    description: "help_desc",
     aliases: ["h"],
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         if(args[0]){
             const cmd = client.commands.filter(c => c.group != "dev").find(c => c.name == args[0]) || client.commands.filter(c => c.group != "dev").find(c => c.aliases && c.aliases.includes(args[0]))
-            if(!cmd) return await message.channel.createMessage("> :x: **Такой команды не существует.**")
+            if(!cmd) return await message.channel.createMessage(lang.cmd_not_found)
             const embed = {
-                title: `Информация о команде ${cmd.name}`,
+                title: lang.help_info(cmd.name),
                 fields: [
                     {
-                        name: "Использование",
-                        value: `\`\`\`${prefix}${cmd.name} ${cmd.usage || ""}\`\`\``
+                        name: lang.usage,
+                        value: `\`\`\`${prefix}${cmd.name} ${lang[cmd.usage] || ""}\`\`\``
                     },
                     {
-                        name: "Описание",
-                        value: cmd.description
+                        name: lang.desc,
+                        value: lang[cmd.description]
                     },
                     {
-                        name: "Алиасы",
-                        value: cmd.aliases ? cmd.aliases.map(a => `\`${a}\``).join(", ") || "Нет" : "Нет"
+                        name: lang.aliases,
+                        value: cmd.aliases ? cmd.aliases.map(a => `\`${a}\``).join(", ") || lang.no : lang.no
                     }
                 ],
                 color: embColor
@@ -28,35 +28,35 @@ module.exports = {
             message.channel.createMessage({embed})
         }else{
         const embed = {
-            title: "Список команд",
+            title: lang.help_list,
             author: {name: client.user.username, icon_url: client.user.avatarURL},
-            description: `Префикс: \`${prefix}\`\nДля получения информации о какой-либо команде используйте \`${prefix}${this.name} ${this.usage}\``,
+            description: lang.help_embdesc(prefix, this),
             fields: [
                 {
-                    name: "Информационные",
+                    name: lang.help_ginfo,
                     value: client.commands.filter(c => c.group == "info").map(c => `\`${c.name}\``).join(", ")
                 },
                 {
-                    name: "Развлекательные",
+                    name: lang.help_gfun,
                     value: client.commands.filter(c => c.group == "fun").map(c => `\`${c.name}\``).join(", "),
                     inline: true
                 },
                 {
-                    name: "Экономика",
+                    name: lang.help_geco,
                     value: client.commands.filter(c => c.group == "balance").map(c => `\`${c.name}\``).join(", "),
                     inline: true
                 },
                 {
-                    name: "Прочие",
+                    name: lang.help_gother,
                     value: client.commands.filter(c => c.group == "other").map(c => `\`${c.name}\``).join(", ")
                 },
                 {
-                    name: "Модераторские",
+                    name: lang.help_gmod,
                     value: client.commands.filter(c => c.group == "mod").map(c => `\`${c.name}\``).join(", "),
                     inline: true
                 },
                 {
-                    name: "Настройки",
+                    name: lang.help_gsets,
                     value: client.commands.filter(c => c.group == "settings").map(c => `\`${c.name}\``).join(", "),
                     inline: true
                 }

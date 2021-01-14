@@ -8,19 +8,26 @@ module.exports = async function(message){
     let usedColor = color ? color.value : config.embColor
     if(usedColor == -1) usedColor = Math.floor(Math.random() * 0xffffff)
     if(usedColor == -2) usedColor = config.embColor
+    const lang = await langs.findOne({where: {userID: message.author.id}})
+    let usedLang = lang ? client.langs.get(lang.value) : client.langs.get("en")
     if(message.content.toLowerCase().startsWith(usedPrefix)){
-        if(!message.channel.guild.me.permission.json.embedLinks) return await message.channel.createMessage("У бота отсутствует право `встраивать ссылки`")
-        if(!message.channel.guild.me.permission.json.sendMessages) return
+        if(!message.channel.guild.me.permissions.json.embedLinks) return await message.channel.createMessage(usedLang.embed_error)
+        if(!message.channel.guild.me.permissions.json.sendMessages) return
         const cmdName = message.content.slice(usedPrefix.length).toLowerCase().split(" ")[0]
         const command = client.commands.get(cmdName) || client.commands.find(c => c.aliases && c.aliases.includes(cmdName))
         if(!command) return
         if(command.ownerOnly && !config.owners.includes(message.author.id)) return
+        if(command.permissions){
+            if(command.permissions.user && !message.member.permissions.json[command.permissions.user]) return await message.channel.createMessage(usedLang.no_user_permission(command.permissions.user))
+            if(command.permissions.bot && !message.guild.me.permissions.json[command.permissions.bot]) return await message.channel.createMessage(usedLang.no_bot_permission(command.permissions.bot))
+        }
         const args = message.content.slice(usedPrefix.length + cmdName.length).trim().split(" ")
+        if(command.needArgs && !args[0]) return await message.channel.createMessage(usedLang.cmd_usage(usedPrefix, command))
         try{
-            var executed = await command.execute(client, message, args, usedPrefix, usedColor)
+            var executed = await command.execute(client, message, args, usedPrefix, usedColor, usedLang)
         }catch(error){
             const embed = {
-                title: "Произошла ошибка при выполнении команды.",
+                title: usedLang.cmd_error,
                 description: `\`\`\`js\n${error}\`\`\``,
                 color: config.embColor
             }
@@ -55,7 +62,7 @@ module.exports = async function(message){
             if(executed instanceof Eris.Message) message.author.cmdUses.set(message.timestamp, executed)
         }
     }
-    if(message.content == client.user.mention || message.content == message.guild.me.mention) await client.commands.get("prefix").execute(client, message, [], usedPrefix, usedColor)
+    if(message.content == client.user.mention || message.content == message.guild.me.mention) await client.commands.get("prefix").execute(client, message, [], usedPrefix, usedColor, usedLang)
 }
 
 module.exports.reloadable = true

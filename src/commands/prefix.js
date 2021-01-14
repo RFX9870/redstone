@@ -1,26 +1,26 @@
 module.exports = {
     name: "prefix",
-    usage: "[новый префикс]",
-    description: "изменяет префикс на сервере.",
+    usage: "prefix_usage",
+    description: "prefix_desc",
+    permissions: {user: "manageGuild"},
     group: "settings",
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         const newPrefix = args[0]
         if(!newPrefix) {
             const embed = new Eris.Embed()
             .author(message.guild.name, message.guild.iconURL)
-            .description(`Префикс на этом сервере - \`\`${prefix}\`\`\nИспользуйте \`${prefix}help\` для получения списка команд.`)
+            .description(lang.prefix_embdesc(prefix))
             .color(embColor)
-            if(message.member.permissions.json.manageGuild) embed.footer(`Вы можете изменить префикс на сервере использовав ${prefix}${this.name} ${this.usage}`)
+            if(message.member.permissions.json.manageGuild) embed.footer(lang.prefix_tip(prefix, this))
             return await message.channel.createEmbed(embed)
         }
-        if(!message.member.permissions.json.manageGuild) return await message.channel.createMessage("> :x: Чтобы изменить префикс вы должны обладать правом \`Управлять сервером\`")
-        if(newPrefix.length > 10) return await message.channel.createMessage("> :x: Префикс не может быть длиннее 10 символов.")
+        if(newPrefix.length > 10) return await message.channel.createMessage(lang.prefix_long)
         let pr = await prefixes.findOne({where: {serverID: message.guild.id}})
         if(!pr) {
             await prefixes.create({serverID: message.guild.id, value: config.prefix})
             pr = await prefixes.findOne({where: {serverID: message.guild.id}})
         }
         await pr.update({value: newPrefix})
-        return await message.channel.createMessage(`> :white_check_mark: Префикс изменен на \`${newPrefix.toLowerCase()}\``)
+        return await message.channel.createMessage(lang.prefix_success(newPrefix))
     }
 }

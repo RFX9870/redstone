@@ -1,14 +1,14 @@
 module.exports = {
     name: "reverse",
-    usage: "<текст>",
-    description: "реверсирует текст.",
+    usage: "reverse_usage",
+    description: "reverse_desc",
+    needArgs: true,
     group: "other",
     aliases: ["rev"],
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         const text = args.join(" ")
-        if(!text.length) return await message.channel.createMessage(`> :x: **Используйте \`${prefix}${this.name} ${this.usage}\`**`)
         const embed = {
-            title: "Реверс",
+            title: lang.reverse,
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             description: text.split("").reverse().join(""),
             color: embColor

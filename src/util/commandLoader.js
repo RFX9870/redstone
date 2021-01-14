@@ -8,5 +8,4 @@ module.exports = function(client){
         console.log(`${command.name} - loaded!`)
     }
     console.log(`Loaded ${client.commands.size} commands!`)
-    client.commands.get("ascii").test(client)
 }

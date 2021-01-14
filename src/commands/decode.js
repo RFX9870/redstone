@@ -5,11 +5,11 @@ function convert(value, radix) {
 
 module.exports = {
     name: "decode",
-    usage: "<hex>",
-    description: "переводит hex в английский текст.",
+    usage: "decode_usage",
+    description: "decode_desc",
+    needArgs: true,
     group: "fun",
-    async execute(client, message, args, prefix, embColor){
-        if(!args[0]) return await message.channel.createMessage(`> :x: **Используйте** \`${prefix}${this.name} ${this.usage}\``)
+    async execute(client, message, args, prefix, embColor, lang){
         try{
             const result = []
             args.forEach(word => {
@@ -17,13 +17,13 @@ module.exports = {
             })
             const decoded = result.join(" ")
             return await message.channel.createEmbed({
-                title: "Декодирование",
+                title: lang.decode,
                 author: {name: message.author.tag, icon_url: message.author.avatarURL},
                 description: decoded,
                 color: embColor
             })
         }catch{
-            return await message.channel.createMessage(`> :x: **Можно декодировать только hex**`)
+            return await message.channel.createMessage(lang.decode_error)
         }
     }
 }

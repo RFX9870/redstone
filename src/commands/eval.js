@@ -2,7 +2,7 @@ module.exports = {
     name: "eval",
     group: "dev",
     ownerOnly: true,
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         const code = args.join(" ")
         const acode = `(async () => {${code}})()`
         try{

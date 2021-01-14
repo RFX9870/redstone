@@ -2,17 +2,17 @@ function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min +
 
 module.exports = {
     name: "work",
-    description: "дает заработать <:rscredit:767386949400657932>.",
+    description: "work_desc",
     group: "balance",
     cooldown: new Set(),
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         const worked = getRandomInt(100, 350)
         if(this.cooldown.has(message.author.id)) return await message.channel.createEmbed({
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             fields: [
                 {
-                    name: "Работа",
-                    value: `:x: **Работа будет доступна через ${Math.floor((message.author.workedTimestamp - Date.now() + 3600000) / 60000)} мин.**`
+                    name: lang.work,
+                    value: lang.work_cooldown(Math.floor((message.author.workedTimestamp - Date.now() + 3600000) / 60000))
                 }
             ],
             color: embColor
@@ -32,8 +32,8 @@ module.exports = {
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             fields: [
                 {
-                    name: "Работа",
-                    value: `Вы заработали ${worked} <:rscredit:767386949400657932>. Ваш баланс: ${Number(bal.value)} <:rscredit:767386949400657932>.`
+                    name: lang.work,
+                    value: lang.work_success(worked, bal.value)
                 }
             ],
             color: embColor

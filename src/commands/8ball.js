@@ -1,12 +1,12 @@
 module.exports = {
     name: "8ball",
-    usage: "<вопрос>",
-    description: "задать вопрос магическому шару.",
+    usage: "8ball_usage",
+    description: "8ball_desc",
+    needArgs: true,
     group: "fun",
     aliases: ["8b"],
-    async execute(client, message, args, prefix, embColor){
+    async execute(client, message, args, prefix, embColor, lang){
         const thing = args.join(" ")
-        if(!thing.length) return await message.channel.createMessage(`> :x: **Используйте \`${prefix}${this.name} ${this.usage}\`**`)
         const answers = [
             "Да.",
             "Нет.",
@@ -40,12 +40,12 @@ module.exports = {
             "Я обязательно выживу..."
         ]
         const embed = {
-            title: "Магический шар",
+            title: lang["8ball_title"],
             author: {name: message.author.tag, icon_url: message.author.avatarURL},
             description: thing,
             fields: [
                 {
-                    name: "Ответ:",
+                    name: lang["8ball_answer"],
                     value: answers[Math.floor(Math.random() * answers.length)]
                 }
             ],
