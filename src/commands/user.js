@@ -58,7 +58,7 @@ module.exports = {
         .color(member ? member.color < 0xffffff ? member.color || embColor : 0xfffffe : embColor)
         if(member) {
             const index = message.guild.members.map(m=>m).sort((a,b) => a.joinedAt-b.joinedAt).indexOf(member)+1
-            embed.footer(`${index}-${lang.ending(index)} member`)
+            embed.footer(`${index}-${lang.ending(index)} ${lang.member}`)
         }
         if(user.game) {
             let playing = user.game.type == 4 ? user.game.state || "" : user.game.name
