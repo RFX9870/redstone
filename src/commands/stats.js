@@ -14,6 +14,18 @@ module.exports = {
             const ref = require("fs").readFileSync("./.git/HEAD").toString().slice(5).trim()
             commit = require("fs").readFileSync(`./.git/${ref}`).toString().slice(0, 7)
         }catch{}
+        const platforms = {
+            "aix": "AIX",
+            "android": "Android",
+            "cygwin": "Cygwin",
+            "darwin": "MacOS",
+            "freebsd": "FreeBSD",
+            "linux": "Linux",
+            "openbsd": "OpenBSD",
+            "sunos": "SunOS",
+            "win32": "Windows"
+        }
+        process.platform = ""
         const embed = {
             title: lang.stats,
             fields: [
@@ -28,6 +40,10 @@ module.exports = {
                 {
                     name: lang.stats_users,
                     value: client.users.size
+                },
+                {
+                    name: lang.stats_channels,
+                    value: Object.keys(client.channelGuildMap).length
                 },
                 {
                     name: lang.stats_packages,
@@ -50,6 +66,11 @@ module.exports = {
             })
             embed.fields[0].inline = true
             embed.fields.splice(6, 0, {
+                name: lang.stats_uses,
+                value: client.users.filter(u => u.cmdUses).reduce((a, v) => a+v.cmdUses.size, 1),
+                inline: true
+            },
+            {
                 name: lang.stats_ram,
                 value: `${(process.memoryUsage().heapUsed / (1024*1024)).toFixed(1)} ${lang.mb}`,
                 inline: true
@@ -59,7 +80,16 @@ module.exports = {
                 value: (require("os").cpus().map(c => c.model)[0] || lang.na) + ` (${process.arch})`,
                 inline: true
             })
+            embed.fields.push({
+                name: lang.stats_platform,
+                value: `${platforms[process.platform]} ${require("os").release()}`,
+                inline: true
+            })
+            embed.fields[3].inline = true
+            embed.fields[4].inline = true
             embed.fields[5].inline = true
+            embed.fields[6].inline = true
+            embed.fields[9].inline = true
         }
         return await message.channel.createMessage({embed})
     }

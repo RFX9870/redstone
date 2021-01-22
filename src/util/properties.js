@@ -5,7 +5,6 @@ module.exports = function(Eris){
     Eris.Member.prototype.dynamicAvatarURL = function(format, size){
         return this.user.dynamicAvatarURL(format, size)
     }
-    Eris.User.prototype.cmdUses = new Eris.Collection()
     Object.defineProperties(Eris.User.prototype, {
         "status": {
             get: function(){

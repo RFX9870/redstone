@@ -31,7 +31,7 @@ module.exports = async function(message){
                 description: `\`\`\`js\n${error}\`\`\``,
                 color: config.embColor
             }
-            await message.channel.createMessage({embed})
+            var executed = await message.channel.createMessage({embed})
             if(config.errlogger.enabled) await client.executeWebhook(config.errlogger.id, config.errlogger.token, {embeds: [{
                 title: "Ошибка в команде",
                 description: `\`\`\`js\n${error.stack}\`\`\``,
@@ -59,6 +59,7 @@ module.exports = async function(message){
                 color: config.embColor
             }
             if(config.logger.enabled) await client.executeWebhook(config.logger.id, config.logger.token, {embeds: [embed]})
+            if(!message.author.cmdUses) message.author.cmdUses = new Eris.Collection()
             if(executed instanceof Eris.Message) message.author.cmdUses.set(message.timestamp, executed)
         }
     }
