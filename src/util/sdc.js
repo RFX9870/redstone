@@ -19,6 +19,6 @@ async function sendPOST(){
 
 module.exports = function(){
     if(!config.sdc.enabled) return
-    sendPOST(client)
-    client.sdc = setInterval(sendPOST, 1800000, client)
+    sendPOST()
+    client.sdc = setInterval(sendPOST, 1800000)
 }
