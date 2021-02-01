@@ -1,4 +1,4 @@
-async function sendPOST(){
+async function sendPOST(client){
     const fetch = require("node-fetch")
     const {stringify} = require("querystring")
     const res = await fetch(`https://api.server-discord.com/v2/bots/${client.user.id}/stats`, {
