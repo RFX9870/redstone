@@ -28,7 +28,7 @@ module.exports = {
     },
     utils(){
         const utils = fs.readdirSync("./src/util").filter(f => f.endsWith(".js"))
-        for(const util of utils) require(`./util/${util}`)
+        for(const util of utils) require(`./util/${util}`)()
     },
     events_client(){
         const events = fs.readdirSync("./src/events/client").filter(f => f.endsWith(".js"))

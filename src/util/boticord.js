@@ -11,7 +11,7 @@ async function sendPOST(){
     res.status == 200 ? console.log("Boticord stats sent!") : console.log(`Boticord returned ${res.status}`)
 }
 
-module.exports = function(client){
+module.exports = function(){
     if(!config.boticord.enabled) return
     sendPOST(client)
     client.boticord = setInterval(sendPOST, 1800000, client)

@@ -17,7 +17,7 @@ async function sendPOST(){
     else console.log("SDC Stats sent!")
 }
 
-module.exports = function(client){
+module.exports = function(){
     if(!config.sdc.enabled) return
     sendPOST(client)
     client.sdc = setInterval(sendPOST, 1800000, client)
