@@ -1,7 +1,6 @@
 module.exports = async function(message){
     if(config.antibot && message.author.bot) return
     if(!message.channel.guild) return
-    const {_client: client} = message
     const prefix = await prefixes.findOne({where: {serverID: message.guild.id}})
     const usedPrefix = prefix ? prefix.value.toLowerCase() : config.prefix.toLowerCase()
     const color = await embColors.findOne({where: {userID: message.author.id}})
@@ -66,4 +65,4 @@ module.exports = async function(message){
     if(message.content == client.user.mention || message.content == message.guild.me.mention) await client.commands.get("prefix").execute(client, message, [], usedPrefix, usedColor, usedLang)
 }
 
-module.exports.reloadable = true
+module.exports.event = "messageCreate"

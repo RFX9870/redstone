@@ -1,16 +1,17 @@
 module.exports = function(sequelize){
     const {DataTypes} = require("sequelize")
-    global.prefixes = sequelize.define("prefix",{
-        serverID: {
+    return sequelize.define("color", {
+        userID: {
             type: DataTypes.TEXT,
             allowNull: false
         },
         value: {
-            type: DataTypes.TEXT,
+            type: DataTypes.INTEGER,
             allowNull: false
-        },
+        }
     }, {
         freezeTableName: true
     })
-    prefixes.sync().then(() => console.log("Prefixes synced!")).catch(err => console.log("Prefixes not synced: " + err))
 }
+
+module.exports.model = "embColors"

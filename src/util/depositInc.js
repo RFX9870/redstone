@@ -1,5 +1,4 @@
-module.exports = function(client){
-    console.log("DepositInc - loaded!")
+module.exports = function(){
     client.deposits = setInterval(async() => {
         const balances = (await balance.findAll()).filter(b => b.deposit != 0)
         for(const bal of balances){

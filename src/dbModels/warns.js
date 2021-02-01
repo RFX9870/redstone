@@ -1,20 +1,25 @@
 module.exports = function(sequelize){
     const {DataTypes} = require("sequelize")
-    global.balance = sequelize.define("balance",{
+    return sequelize.define("warn", {
         userID: {
             type: DataTypes.TEXT,
             allowNull: false
         },
-        value: {
-            type: DataTypes.INTEGER,
+        serverID: {
+            type: DataTypes.TEXT,
             allowNull: false
         },
-        deposit: {
-            type: DataTypes.INTEGER,
+        modID: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        reason: {
+            type: DataTypes.TEXT,
             allowNull: false
         }
     }, {
         freezeTableName: true
     })
-    balance.sync().then(() => console.log("Balances synced!")).catch(err => console.log("Balances not synced: " + err))
 }
+
+module.exports.model = "warns"

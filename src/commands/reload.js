@@ -5,42 +5,19 @@ module.exports = {
     async execute(client, message, args, prefix, embColor, lang){
         switch(args[0]){
             case "all":{
-                const fs = require("fs")
+                for(const cmd of client.commands.values()) delete require.cache[require.resolve(`./${cmd.name}`)]
                 client.commands.clear()
-                const commandFiles = fs.readdirSync("./src/commands").filter(f=>f.endsWith(".js")).map(f=>f.replace(".js", ""))
-                for(const cmd of commandFiles){
-                    try{
-                        delete require.cache[require.resolve(`./${cmd}`)]
-                        const command = require(`./${cmd}`)
-                        client.commands.set(command.name, command)
-                    }catch(error){
-                        return await message.channel.createEmbed({
-                            title: `Ошибка при перезагрузке ${cmd.name}`,
-                            description: `\`\`\`js\n${error}\`\`\``,
-                            color: embColor
-                        })
-                    }
-                }
+                init.commands()
                 return await message.addReaction("✅")
             }
             case "events":{
                 const fs = require("fs")
-                const listenerFiles = fs.readdirSync("./src/events").filter(f=>f.endsWith(".js")).map(f=>f.replace(".js", ""))
-                for(const file of listenerFiles){
-                    try{
-                        delete require.cache[require.resolve(`../events/${file}`)]
-                        if(require(`../events/${file}`).reloadable){
-                            client.removeAllListeners(file)
-                            client.on(file, require(`../events/${file}`))
-                        }
-                    }catch(error){
-                        return await message.channel.createEmbed({
-                            title: `Ошибка при перезагрузке ${file}`,
-                            description: `\`\`\`js\n${error}\`\`\``,
-                            color: embColor
-                        })
-                    }
-                }
+                for(const clientlr of client.eventNames()) delete require.cache[require.resolve(`../events/client/${clientlr}`)]
+                for(const processlr of process.eventNames().filter(l => fs.readdirSync("./src/events/process").includes(l))) delete require.cache[require.resolve(`../events/process/${processlr}`)]
+                client.removeAllListeners()
+                process.removeAllListeners()
+                init.events_client()
+                init.events_process()
                 return await message.addReaction("✅")
             }
             case "config":{
@@ -70,22 +47,9 @@ module.exports = {
                 }
             }
             case "langs":{
-                const fs = require("fs")
+                for(const lang of client.langs.values()) delete require.cache[require.resolve(`../langs/${lang.name}`)]
                 client.langs.clear()
-                const langFiles = fs.readdirSync("./src/langs").filter(f=>f.endsWith(".js")).map(f=>f.replace(".js", ""))
-                for(const lang of langFiles){
-                    try{
-                        delete require.cache[require.resolve(`../langs/${lang}`)]
-                        const lng = require(`../langs/${lang}`)
-                        client.langs.set(lng.name, lng)
-                    }catch(error){
-                        return await message.channel.createEmbed({
-                            title: `Ошибка при перезагрузке ${lang.name}`,
-                            description: `\`\`\`js\n${error}\`\`\``,
-                            color: embColor
-                        })
-                    }
-                }
+                init.langs()
                 return await message.addReaction("✅")
             }
             default:{

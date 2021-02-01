@@ -6,4 +6,4 @@ module.exports = async function(guild){
     }]})
 }
 
-module.exports.reloadable = true
+module.exports.event = "guildDelete"

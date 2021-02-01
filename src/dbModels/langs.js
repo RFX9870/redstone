@@ -1,6 +1,6 @@
 module.exports = function(sequelize){
     const {DataTypes} = require("sequelize")
-    global.langs = sequelize.define("lang", {
+    return sequelize.define("lang", {
         userID: {
             type: DataTypes.TEXT,
             allowNull: false
@@ -12,5 +12,6 @@ module.exports = function(sequelize){
     }, {
         freezeTableName: true
     })
-    langs.sync().then(() => console.log("Langs synced!")).catch(err => console.log("Langs not synced: " + err))
 }
+
+module.exports.model = "langs"

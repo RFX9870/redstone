@@ -17,4 +17,4 @@ module.exports = async function(message, oldMessage){
     }
 }
 
-module.exports.reloadable = true
+module.exports.event = "messageUpdate"

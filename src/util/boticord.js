@@ -1,4 +1,4 @@
-async function sendPOST(client){
+async function sendPOST(){
     const fetch = require("node-fetch")
     const res = await fetch(`https://boticord.top/api/stats`, {
         method: "POST",
