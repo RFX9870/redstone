@@ -1,4 +1,4 @@
-async function sendPOST(client){
+async function sendPOST(){
     const fetch = require("node-fetch")
     const res = await fetch(`https://boticord.top/api/stats`, {
         method: "POST",
@@ -13,6 +13,6 @@ async function sendPOST(client){
 
 module.exports = function(){
     if(!config.boticord.enabled) return
-    sendPOST(client)
-    client.boticord = setInterval(sendPOST, 1800000, client)
+    sendPOST()
+    client.boticord = setInterval(sendPOST, 1800000)
 }

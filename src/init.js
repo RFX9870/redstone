@@ -27,8 +27,12 @@ module.exports = {
         }
     },
     utils(){
-        const utils = fs.readdirSync("./src/util").filter(f => f.endsWith(".js"))
-        for(const util of utils) require(`./util/${util}`)()
+        if(client.ready){
+            const utils = fs.readdirSync("./src/util").filter(f => f.endsWith(".js"))
+            for(const util of utils) require(`./util/${util}`)()
+        }else{
+            setTimeout(module.exports.utils, 1000)
+        }
     },
     events_client(){
         const events = fs.readdirSync("./src/events/client").filter(f => f.endsWith(".js"))

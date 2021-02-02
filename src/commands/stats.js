@@ -25,7 +25,6 @@ module.exports = {
             "sunos": "SunOS",
             "win32": "Windows"
         }
-        process.platform = ""
         const embed = {
             title: lang.stats,
             fields: [
