@@ -1,4 +1,4 @@
-module.exports = async function(message){
+module.exports = async function messageCreate(message){
     if(config.antibot && message.author.bot) return
     if(!message.channel.guild) return
     const prefix = await prefixes.findOne({where: {serverID: message.guild.id}})
@@ -64,5 +64,3 @@ module.exports = async function(message){
     }
     if(message.content == client.user.mention || message.content == message.guild.me.mention) await client.commands.get("prefix").execute(client, message, [], usedPrefix, usedColor, usedLang)
 }
-
-module.exports.event = "messageCreate"

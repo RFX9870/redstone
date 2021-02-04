@@ -38,14 +38,14 @@ module.exports = {
         const events = fs.readdirSync("./src/events/client").filter(f => f.endsWith(".js"))
         for(const event of events) {
             const ev = require(`./events/client/${event}`)
-            client.on(ev.event, ev)
+            client.on(ev.name, ev)
         }
     },
     events_process(){
         const events = fs.readdirSync("./src/events/process").filter(f => f.endsWith(".js"))
         for(const event of events) {
             const ev = require(`./events/process/${event}`)
-            process.on(ev.event, ev)
+            process.on(ev.name, ev)
         }
     }
 }

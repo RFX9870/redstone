@@ -1,8 +1,9 @@
-module.exports = async function(message, oldMessage){
+module.exports = async function messageUpdate(message, oldMessage){
     if(!message || !oldMessage) return
     if(message.content == oldMessage.content) return
     if(config.antibot && message.author.bot) return
     if(!message.channel.guild) return
+    if(!message.author.cmdUses) return
     const {_client: client} = message
     const prefix = await prefixes.findOne({where: {serverID: message.guild.id}})
     const usedPrefix = prefix ? prefix.value.toLowerCase() : config.prefix.toLowerCase()
@@ -16,5 +17,3 @@ module.exports = async function(message, oldMessage){
         message._client.emit("messageCreate", message)
     }
 }
-
-module.exports.event = "messageUpdate"
