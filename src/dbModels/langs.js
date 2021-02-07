@@ -1,4 +1,4 @@
-module.exports = function(sequelize){
+module.exports = function langs(sequelize){
     const {DataTypes} = require("sequelize")
     return sequelize.define("lang", {
         userID: {
@@ -13,5 +13,3 @@ module.exports = function(sequelize){
         freezeTableName: true
     })
 }
-
-module.exports.model = "langs"

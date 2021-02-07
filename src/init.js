@@ -22,8 +22,8 @@ module.exports = {
         const models = fs.readdirSync("./src/dbModels").filter(f => f.endsWith(".js"))
         for(const model of models){
             const mod = require(`./dbModels/${model}`)
-            global[mod.model] = mod(client.sequelize)
-            global[mod.model].sync().then(() => console.log(`${mod.model} synced!`)).catch(error => `Error on syncing ${mod.model}: ${error}`)
+            global[mod.name] = mod(client.sequelize)
+            global[mod.name].sync().then(() => console.log(`${mod.name} synced!`)).catch(error => console.log(`Error on syncing ${mod.name}: ${error}`))
         }
     },
     utils(){

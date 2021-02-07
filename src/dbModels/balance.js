@@ -1,4 +1,4 @@
-module.exports = function(sequelize){
+module.exports = function balance(sequelize){
     const {DataTypes} = require("sequelize")
     return sequelize.define("balance",{
         userID: {
@@ -17,5 +17,3 @@ module.exports = function(sequelize){
         freezeTableName: true
     })
 }
-
-module.exports.model = "balance"

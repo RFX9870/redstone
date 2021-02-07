@@ -1,4 +1,4 @@
-module.exports = function(sequelize){
+module.exports = function prefixes(sequelize){
     const {DataTypes} = require("sequelize")
     return sequelize.define("prefix",{
         serverID: {
@@ -13,5 +13,3 @@ module.exports = function(sequelize){
         freezeTableName: true
     })
 }
-
-module.exports.model = "prefixes"

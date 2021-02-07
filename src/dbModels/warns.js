@@ -1,4 +1,4 @@
-module.exports = function(sequelize){
+module.exports = function warns(sequelize){
     const {DataTypes} = require("sequelize")
     return sequelize.define("warn", {
         userID: {
@@ -21,5 +21,3 @@ module.exports = function(sequelize){
         freezeTableName: true
     })
 }
-
-module.exports.model = "warns"
