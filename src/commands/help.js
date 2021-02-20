@@ -25,7 +25,7 @@ module.exports = {
                 ],
                 color: embColor
             }
-            message.channel.createMessage({embed})
+            return await message.channel.createMessage({embed})
         }else{
         const embed = {
             title: lang.help_list,
