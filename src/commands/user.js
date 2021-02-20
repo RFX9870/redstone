@@ -5,7 +5,7 @@ module.exports = {
     group: "info",
     aliases: ["userinfo", "u"],
     async execute(client, message, args, prefix, embColor, lang){
-        const strftime = require("strftime").localizeByIdentifier(`${lang.name}_${lang.name.toUpperCase()}`)
+        const strftime = require("strftime").localizeByIdentifier(lang.locale)
         let user = message.mentions[0] || client.users.get(args[0]) || client.users.find(u => u.username == args.join(" ")) || client.users.find(u => u.tag == args.join(" ")) || message.guild.members.find(m => m.user.username.toLowerCase().startsWith(args.join(" ").toLowerCase()))
         if(!args[0]) user = message.author
         if(!user) {

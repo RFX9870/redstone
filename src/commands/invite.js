@@ -6,7 +6,7 @@ module.exports = {
     group: "info",
     aliases: ["getinvite", "inviteinfo"],
     async execute(client, message, args, prefix, embColor, lang){
-        const strftime = require("strftime").localizeByIdentifier(`${lang.name}_${lang.name.toUpperCase()}`)
+        const strftime = require("strftime").localizeByIdentifier(lang.locale)
         const inv = args[0].slice(args[0].lastIndexOf("/")+1)
         client.getInvite(inv, true).then(async invite => {
             const {guild} = invite

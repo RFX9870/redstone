@@ -6,7 +6,7 @@ module.exports = {
     group: "info",
     aliases: ["roleinfo", "r"],
     async execute(client, message, args, prefix, embColor, lang){
-        const strftime = require("strftime").localizeByIdentifier(`${lang.name}_${lang.name.toUpperCase()}`)
+        const strftime = require("strftime").localizeByIdentifier(lang.locale)
         const color = (x) => {
             let clr = x.toString(16)
             if(clr == 0) return lang.default_color

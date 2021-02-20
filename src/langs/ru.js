@@ -1,5 +1,6 @@
 module.exports = {
     name: "ru",
+    locale: "ru_RU",
     "8ball_usage": "<вопрос>",
     "8ball_desc": "Задать вопрос магическому шару",
     "8ball_title": "Магический шар",
@@ -17,7 +18,7 @@ module.exports = {
     splash: (name) => `Фон приглашения сервера ${name}`,
     user_not_found: "> :x: Пользователь не найден.",
     avatar: (name) => `Аватар пользователя ${name}`,
-    balance_usage: "[ID or @mупоминание]. Если не указано, будет выведен ваш баланс",
+    balance_usage: "[ID or @упоминание]. Если не указано, будет выведен ваш баланс",
     balance_desc: "Показывает баланс пользователя",
     balance: "Баланс",
     deposit: "Депозит",
@@ -174,6 +175,7 @@ module.exports = {
     reverse_desc: "Реверсирует текст",
     reverse: "Реверс",
     role_usage: "<ID или @упоминание>",
+    role_desc: "Показывает информацию о роли",
     default_color: "Стандартный",
     role_not_found: "> :x: Роль не найдена.",
     role_position: "Позиция",

@@ -4,7 +4,7 @@ module.exports = {
     group: "info",
     aliases: ["serverinfo", "s"],
     async execute(client, message, args, prefix, embColor, lang){
-        const strftime = require("strftime").localizeByIdentifier(`${lang.name}_${lang.name.toUpperCase()}`)
+        const strftime = require("strftime").localizeByIdentifier(lang.locale)
         const guild = config.owners.includes(message.author.id) ? client.guilds.get(args[0]) || message.guild : message.guild
         const now = Date.now()
         const createdDaysAgo = Math.round((now - guild.createdAt) / (1000 * 60 * 60 * 24))
