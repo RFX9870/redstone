@@ -14,7 +14,7 @@ module.exports = {
         switch(args[0]){
             case "-g":{
                 const finalTop = []
-                for(let i = 0; i < 11; i++){
+                for(let i = 0; i < 10; i++){
                     if(!top[i]) continue
                     const user = client.users.get(top[i].userID) || await client.getRESTUser(top[i].userID)
                     if(user.bot || top[i].value <= 0 || top[i].value == Infinity) continue
@@ -32,7 +32,7 @@ module.exports = {
             default:{
                 const guildTop = top.filter(b => message.guild.members.has(b.userID))
                 const finalTop = []
-                for(let i = 0; i < 11; i++){
+                for(let i = 0; i < 10; i++){
                     if(!top[0]) return await message.channel.createMessage(lang.top_no_top)
                     if(!top[i]) continue
                     const user = client.users.get(top[i].userID) || await client.getRESTUser(top[i].userID)
