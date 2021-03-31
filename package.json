@@ -1,28 +1,27 @@
 {
   "name": "redstone",
-  "version": "1.9.3",
+  "version": "2.0.0",
   "description": "Бот с экономикой и модерацией.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "RFX9870",
+  "author": "relathyme",
   "license": "MIT",
   "dependencies": {
     "eris": "^0.14.0",
     "eris-additions": "^1.4.1",
+    "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
     "sequelize": "^6.3.5",
-    "sqlite3": "^5.0.0",
-    "strftime": "^0.10.0"
+    "sqlite3": "^5.0.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RFX9870/redstone.git"
+    "url": "git+https://github.com/relathyme/redstone.git"
   },
   "bugs": {
-    "url": "https://github.com/RFX9870/redstone/issues"
+    "url": "https://github.com/relathyme/redstone/issues"
   },
-  "homepage": "https://github.com/RFX9870/redstone#readme"
+  "homepage": "https://github.com/relathyme/redstone#readme"
 }

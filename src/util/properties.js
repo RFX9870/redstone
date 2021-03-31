@@ -46,4 +46,16 @@ module.exports = function(){
         }
         return final
     }
+    global.isNumber = n => !isNaN(parseFloat(n)) && !isNaN(n - 0)
+    global.convert = (value, radix) => {
+        return [...value.toString()]
+            .reduce((r, v) => r * BigInt(radix) + BigInt(parseInt(v, radix)), 0n);
+    }
+    global.getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+    global.color = (x) => {
+        let clr = x.toString(16)
+        if(clr == 0) return "#000000"
+        while(clr.length < 6) clr = "0"+clr
+        return "#"+clr.toUpperCase()
+    }
 }

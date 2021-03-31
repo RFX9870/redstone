@@ -6,7 +6,6 @@ module.exports = {
     group: "info",
     aliases: ["roleinfo", "r"],
     async execute(client, message, args, prefix, embColor, lang){
-        const strftime = require("strftime").localizeByIdentifier(lang.locale)
         const color = (x) => {
             let clr = x.toString(16)
             if(clr == 0) return lang.default_color
@@ -19,7 +18,7 @@ module.exports = {
         const embed = new Eris.Embed()
         .title(role.name)
         .field("ID", role.id, true)
-        .field(lang.created, strftime(`%d %B %Y, %H:%M:%S (${createdDaysAgo} ${lang.days_ago})`, new Date(role.createdAt)), true)
+        .field(lang.created, `${moment(role.createdAt).format("lll")} (${createdDaysAgo} ${lang.days_ago})`, true)
         .field(lang.role_position, message.guild.roles.size-role.position, true)
         .field(lang.role_managed, role.managed ? lang.yes : lang.no, true)
         .field(lang.role_mentionable, role.mentionable ? lang.yes : lang.no, true)

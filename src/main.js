@@ -1,4 +1,5 @@
 global.Eris = require("eris-additions")(require("eris"))
+global.moment = require("moment")
 process.env.TZ = "Etc/Greenwich"
 global.config = require("../config.json")
 global.package = require("../package.json")

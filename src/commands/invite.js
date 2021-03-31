@@ -6,7 +6,6 @@ module.exports = {
     group: "info",
     aliases: ["getinvite", "inviteinfo"],
     async execute(client, message, args, prefix, embColor, lang){
-        const strftime = require("strftime").localizeByIdentifier(lang.locale)
         const inv = args[0].slice(args[0].lastIndexOf("/")+1)
         client.getInvite(inv, true).then(async invite => {
             const {guild} = invite
@@ -17,7 +16,7 @@ module.exports = {
             .title(guild.name)
             .field("ID", guild.id, true)
             if(client.guilds.has(guild.id)) embed.field(lang.owner, owner.tag, true)
-            embed.field(lang.created, strftime(`%d %B %Y, %H:%M:%S (${createdDaysAgo} ${lang.days_ago})`, new Date(guild.createdAt)), true)
+            embed.field(lang.created, `${moment(guild.createdAt).format("lll")} (${createdDaysAgo} ${lang.days_ago})`, true)
             if(client.guilds.has(guild.id)) embed.field(lang.members, lang.members_stats(guild), true)
                     .field(lang.channels, lang.channels_stats(guild), true)
                     .field(lang.emoji, lang.emoji_stats(guild), true)

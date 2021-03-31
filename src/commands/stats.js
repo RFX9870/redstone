@@ -1,5 +1,3 @@
-const strftime = require("strftime")
-
 module.exports = {
     name: "stats",
     usage: "stats_usage",
@@ -30,7 +28,7 @@ module.exports = {
             fields: [
                 {
                     name: lang.stats_uptime,
-                    value: `${Math.floor(process.uptime() * 1000 / 86400000)}${lang.d}${strftime(`%H${lang.h}%M${lang.m}%S${lang.s}`, uptime)}`,
+                    value: `${Math.floor(process.uptime() * 1000 / 86400000)}:${moment(uptime).format("LTS")}`,
                 },
                 {
                     name: lang.stats_servers,
@@ -49,18 +47,18 @@ module.exports = {
                     value: `**Node.js:** ${process.version}\n**Eris:** ${require("eris").VERSION}\n**sqlite3:** ${require("sqlite3").VERSION}\n**Sequelize:** ${require("sequelize").version}`,
                 }
             ],
-            footer: {text: `${client.user.username} v${package.version} ${commit ? `(${commit})` : ""} © RFX9870`, icon_url: client.user.avatarURL},
+            footer: {text: `${client.user.username} v${package.version} ${commit ? `(${commit})` : ""} © relathyme`, icon_url: client.user.avatarURL},
             color: embColor
         }
         if(args[0] == "-v") {
             embed.fields.splice(1, 0, {
                 name: lang.stats_uptime_c,
-                value: `${Math.floor(client.uptime / 86400000)}${lang.d}${strftime(`%H${lang.h}%M${lang.m}%S${lang.s}`, uptime_c)}`,
+                value: `${Math.floor(client.uptime / 86400000)}:${moment(uptime_c).format("LTS")}`,
                 inline: true
             },
             {
                 name: lang.stats_uptime_h,
-                value: `${Math.floor(require("os").uptime() * 1000 / 86400000)}${lang.d}${strftime(`%H${lang.h}%M${lang.m}%S${lang.s}`, uptime_h)}`,
+                value: `${Math.floor(require("os").uptime() * 1000 / 86400000)}:${moment(uptime_h).format("LTS")}`,
                 inline: true
             })
             embed.fields[0].inline = true

@@ -4,7 +4,6 @@ module.exports = {
     group: "info",
     aliases: ["serverinfo", "s"],
     async execute(client, message, args, prefix, embColor, lang){
-        const strftime = require("strftime").localizeByIdentifier(lang.locale)
         const guild = config.owners.includes(message.author.id) ? client.guilds.get(args[0]) || message.guild : message.guild
         const now = Date.now()
         const createdDaysAgo = Math.round((now - guild.createdAt) / (1000 * 60 * 60 * 24))
@@ -13,7 +12,7 @@ module.exports = {
         .title(guild.name)
         .field("ID", guild.id, true)
         .field(lang.owner, owner.tag, true)
-        .field(lang.created, strftime(`%d %B %Y, %H:%M:%S (${createdDaysAgo} ${lang.days_ago})`, new Date(guild.createdAt)), true)
+        .field(lang.created, `${moment(guild.createdAt).format("lll")} (${createdDaysAgo} ${lang.days_ago})`, true)
         .field(lang.members, lang.members_stats(guild), true)
         .field(lang.channels, lang.channels_stats(guild), true)
         .field(lang.emoji, lang.emoji_stats(guild), true)

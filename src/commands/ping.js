@@ -21,7 +21,7 @@ module.exports = {
                         inline: true
                     }
                 ],
-                footer: {text: `${client.user.username} © RFX9870`, icon_url: client.user.avatarURL},
+                footer: {text: `${client.user.username} © relathyme`, icon_url: client.user.avatarURL},
                 color: embColor
             }
             return await msg.edit({content: "", embed})
@@ -33,7 +33,7 @@ module.exports = {
                         value: `${message.channel.guild.shard.latency} ${lang.ms}`
                     }
                 ],
-                footer: {text: `${client.user.username} © RFX9870`, icon_url: client.user.avatarURL},
+                footer: {text: `${client.user.username} © relathyme`, icon_url: client.user.avatarURL},
                 color: embColor
             }
             return await message.channel.createMessage({embed})

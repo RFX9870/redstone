@@ -22,8 +22,8 @@ module.exports = {
             }
             case "config":{
                 try{
-                    delete require.cache[require.resolve(`../JSON/config.json`)]
-                    global.config = require("../JSON/config.json")
+                    delete require.cache[require.resolve(`../../config.json`)]
+                    global.config = require("../../config.json")
                     return await message.addReaction("✅")
                 }catch(error){
                     return await message.channel.createEmbed({

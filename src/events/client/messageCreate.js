@@ -9,6 +9,7 @@ module.exports = async function messageCreate(message){
     if(usedColor == -2) usedColor = config.embColor
     const lang = await langs.findOne({where: {userID: message.author.id}})
     let usedLang = lang ? client.langs.get(lang.value) : client.langs.get("en")
+    moment.locale(usedLang.locale)
     if(message.content.toLowerCase().startsWith(usedPrefix)){
         if(!message.channel.guild.me.permissions.json.embedLinks) return await message.channel.createMessage(usedLang.embed_error)
         if(!message.channel.guild.me.permissions.json.sendMessages) return

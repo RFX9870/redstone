@@ -1,12 +1,3 @@
-function isNumber(n){ return !isNaN(parseFloat(n)) && !isNaN(n - 0)}
-
-const color = (x) => {
-    let clr = x.toString(16)
-    if(clr == 0) return "#000000"
-    while(clr.length < 6) clr = "0"+clr
-    return "#"+clr.toUpperCase()
-}
-
 module.exports = {
     name: "embcolor",
     usage: "embcolor_usage",

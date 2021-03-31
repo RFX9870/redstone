@@ -1,8 +1,3 @@
-function convert(value, radix) {
-    return [...value.toString()]
-        .reduce((r, v) => r * BigInt(radix) + BigInt(parseInt(v, radix)), 0n);
-}
-
 module.exports = {
     name: "decode",
     usage: "decode_usage",

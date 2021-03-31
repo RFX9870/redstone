@@ -1,3 +1,10 @@
+const color = (mem) => {
+    let clr = mem.color.toString(16)
+    if(clr == 0) return lang.default_color
+    while(clr.length < 6) clr = "0"+clr
+    return "#"+clr.toUpperCase()
+}
+
 module.exports = {
     name: "user",
     usage: "user_usage",
@@ -5,7 +12,6 @@ module.exports = {
     group: "info",
     aliases: ["userinfo", "u"],
     async execute(client, message, args, prefix, embColor, lang){
-        const strftime = require("strftime").localizeByIdentifier(lang.locale)
         let user = message.mentions[0] || client.users.get(args[0]) || client.users.find(u => u.username == args.join(" ")) || client.users.find(u => u.tag == args.join(" ")) || message.guild.members.find(m => m.user.username.toLowerCase().startsWith(args.join(" ").toLowerCase()))
         if(!args[0]) user = message.author
         if(!user) {
@@ -34,12 +40,6 @@ module.exports = {
             bal = await balance.findOne({where: {userID: user.id}})
         }
         const {types} = lang
-        const color = (mem) => {
-            let clr = mem.color.toString(16)
-            if(clr == 0) return lang.default_color
-            while(clr.length < 6) clr = "0"+clr
-            return "#"+clr.toUpperCase()
-        }
         const balances = (await balance.findAll()).filter(b => b.value != Infinity)
         const place_g = balances.sort((a, b) => a.value-b.value).reverse().map(e => e.userID).indexOf(user.id)+1
         const place_s = balances.filter(b => message.guild.members.has(b.userID)).sort((a, b) => a.value-b.value).reverse().map(e => e.userID).indexOf(user.id)+1
@@ -47,18 +47,18 @@ module.exports = {
         .title(user.tag)
         .field("ID", user.id, true)
         .field(lang.user_bot, user.bot ? lang.yes : lang.no, true)
-        .field(lang.user_status, statuses[user.status], true)
-        .field(lang.balance, `${Number(bal.value)} <:rscredit:767386949400657932>`, true)
-        .field(lang.user_registered, strftime(`%d %B %Y, %H:%M:%S (${createdDaysAgo} ${lang.days_ago})`, new Date(user.createdAt)), true)
-        .field(lang.user_joined, member ? strftime(`%d %B %Y, %H:%M:%S (${joinedDaysAgo} ${lang.days_ago})`, new Date(member.joinedAt)) : lang.na, true)
-        .field(lang.user_tops, `${lang.global}: ${place_g ? `${place_g} ${lang.place}` : lang.user_no_top}\n${lang.server}: ${member ? `${place_s ? `${place_s} ${lang.place}` : lang.user_no_top}` : lang.na}`, true)
-        .field(lang.user_roles, member ? member.roles.map(r => message.guild.roles.get(r)).sort((a, b) => a.position - b.position).map(r => `<@&${r.id}>`).reverse().join(", ") || lang.no : lang.na, true)
-        .field(lang.color, member ? color(member) : lang.na, true)
+        if(client.users.has(user.id)) embed.field(lang.user_status, statuses[user.status], true)
+        if(!user.bot) embed.field(lang.balance, `${Number(bal.value)} <:rscredit:767386949400657932>`, true)
+        embed.field(lang.user_registered, `${moment(user.createdAt).format("lll")} (${createdDaysAgo} ${lang.days_ago})`, true)
+        if(member) embed.field(lang.user_joined, member ? `${moment(member.joinedAt).format("lll")} (${joinedDaysAgo} ${lang.days_ago})` : lang.na, true)
+        if(!user.bot) embed.field(lang.user_tops, `${lang.global}: ${place_g ? `${place_g} ${lang.place}` : lang.user_no_top}\n${lang.server}: ${member ? `${place_s ? `${place_s} ${lang.place}` : lang.user_no_top}` : lang.na}`, true)
+        if(member) embed.field(lang.user_roles, member ? member.roles.map(r => message.guild.roles.get(r)).sort((a, b) => a.position - b.position).map(r => `<@&${r.id}>`).reverse().join(", ") || lang.no : lang.na, true)
+        if(member) embed.field(lang.color, member ? color(member) : lang.na, true)
         embed.thumbnail(user.avatarURL || user.defaultAvatarURL)
         .color(member ? member.color < 0xffffff ? member.color || embColor : 0xfffffe : embColor)
         if(member) {
             const index = message.guild.members.map(m=>m).sort((a,b) => a.joinedAt-b.joinedAt).indexOf(member)+1
-            embed.footer(`${index}-${lang.ending(index)} ${lang.member}`)
+            embed.footer(`${index}${lang.ending(index)} ${lang.member}`)
         }
         if(user.game) {
             let playing = user.game.type == 4 ? user.game.state || "" : user.game.name

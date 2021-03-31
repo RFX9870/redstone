@@ -1,7 +1,3 @@
-function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
-
-function isNumber(n){ return !isNaN(parseFloat(n)) && !isNaN(n - 0)}
-
 module.exports = {
     name: "random",
     usage: "random_usage",

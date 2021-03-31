@@ -1,5 +1,3 @@
-function isNumber(n){ return !isNaN(parseFloat(n)) && !isNaN(n - 0)}
-
 module.exports = {
     name: "purge",
     usage: "purge_usage",

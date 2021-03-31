@@ -62,7 +62,7 @@ module.exports = {
                 }
             ],
             color: embColor,
-            footer: {text: `v${package.version} © RFX9870`}
+            footer: {text: `v${package.version} © relathyme`}
         }
         return await message.channel.createMessage({embed})
     }

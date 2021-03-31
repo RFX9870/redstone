@@ -12,11 +12,11 @@ module.exports = {
                 },
                 {
                     name: lang.links_monitorings,
-                    value: "[bots.server-discord.com](https://bots.server-discord.com/612341839093039109)\n[boticord.top](https://boticord.top/bot/612341839093039109)"
+                    value: "[boticord.top](https://boticord.top/bot/612341839093039109)"
                 },
                 {
                     name: lang.links_source,
-                    value: `[${lang.clickable}](https://github.com/RFX9870/redstone)`
+                    value: `[${lang.clickable}](https://github.com/relathyme/redstone)`
                 },
                 {
                     name: "Redstone support server",

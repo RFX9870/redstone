@@ -10,26 +10,45 @@ module.exports = {
             bal = await balance.findOne({where: {userID: message.author.id}})
         }
         const balances = (await balance.findAll()).filter(b => b.value != Infinity)
-        if(args[0] == "-g"){
-            const top = balances.sort((a, b) => a.value-b.value).reverse()
-            const place = top.map(e => e.userID).indexOf(message.author.id)+1
-            const embed = {
-                title: lang.top_global,
-                description: top.map((b, i) => `${i+1}. ${client.users.has(b.userID) ? client.users.get(b.userID).tag : b.userID} - ${b.value} <:rscredit:767386949400657932>`).slice(0, 10).join("\n"),
-                footer: {text: place > 0 ? lang.top_place(place, bal.value) : lang.top_balance(bal.value)},
-                color: embColor
+        const top = balances.sort((a, b) => a.value-b.value).reverse()
+        switch(args[0]){
+            case "-g":{
+                const finalTop = []
+                for(let i = 0; i < 11; i++){
+                    if(!top[i]) continue
+                    const user = client.users.get(top[i].userID) || await client.getRESTUser(top[i].userID)
+                    if(user.bot || top[i].value <= 0 || top[i].value == Infinity) continue
+                    finalTop.push(`${i+1}. ${user.tag} - ${top[i].value} <:rscredit:767386949400657932>`)
+                }
+                const place = top.map(e => e.userID).indexOf(message.author.id)+1
+                const embed = {
+                    title: lang.top_global,
+                    description: finalTop.join("\n"),
+                    footer: {text: place > 0 ? lang.top_place(place, bal.value) : lang.top_balance(bal.value)},
+                    color: embColor
+                }
+                return await message.channel.createEmbed(embed)
             }
-            return await message.channel.createEmbed(embed)
-        }else{
-            const top = balances.filter(b => message.guild.members.has(b.userID)).sort((a, b) => a.value-b.value).reverse()
-            const place = top.map(e => e.userID).indexOf(message.author.id)+1
-            const embed = {
-                title: lang.top_server(message.guild.name),
-                description: top.map((b, i) => `${i+1}. ${client.users.has(b.userID) ? client.users.get(b.userID).tag : b.userID} - ${b.value} <:rscredit:767386949400657932>`).slice(0, 10).join("\n"),
-                footer: {text: place > 0 ? lang.top_place(place, bal.value) : lang.top_balance(bal.value)},
-                color: embColor
+            default:{
+                const guildTop = top.filter(b => message.guild.members.has(b.userID))
+                const finalTop = []
+                for(let i = 0; i < 11; i++){
+                    if(!top[0]) return await message.channel.createMessage(lang.top_no_top)
+                    if(!top[i]) continue
+                    const user = client.users.get(top[i].userID) || await client.getRESTUser(top[i].userID)
+                    if(!message.guild.members.has(top[i].userID) || user.bot || top[i].value <= 0 || top[i].value == Infinity) continue
+                    finalTop.push(`${i+1}. ${user.tag} - ${top[i].value} <:rscredit:767386949400657932>`)
+                }
+                const place = guildTop.map(b => b.userID).indexOf(message.author.id)+1
+                const embed = {
+                    title: lang.top_server(message.guild.name),
+                    description: finalTop.join("\n"),
+                    footer: {text: place > 0 ? lang.top_place(place, bal.value) : lang.top_balance(bal.value)},
+                    color: embColor
+                }
+                if(!finalTop.length) return await message.channel.createMessage(lang.top_no_top)
+                return await message.channel.createEmbed(embed)
             }
-            return await message.channel.createEmbed(embed)
         }
     }
 }
