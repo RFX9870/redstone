@@ -1,10 +1,3 @@
-const color = (mem) => {
-    let clr = mem.color.toString(16)
-    if(clr == 0) return lang.default_color
-    while(clr.length < 6) clr = "0"+clr
-    return "#"+clr.toUpperCase()
-}
-
 module.exports = {
     name: "user",
     usage: "user_usage",
@@ -12,6 +5,12 @@ module.exports = {
     group: "info",
     aliases: ["userinfo", "u"],
     async execute(client, message, args, prefix, embColor, lang){
+        const color = (mem) => {
+            let clr = mem.color.toString(16)
+            if(clr == 0) return lang.default_color
+            while(clr.length < 6) clr = "0"+clr
+            return "#"+clr.toUpperCase()
+        }
         let user = message.mentions[0] || client.users.get(args[0]) || client.users.find(u => u.username == args.join(" ")) || client.users.find(u => u.tag == args.join(" ")) || message.guild.members.find(m => m.user.username.toLowerCase().startsWith(args.join(" ").toLowerCase()))
         if(!args[0]) user = message.author
         if(!user) {
