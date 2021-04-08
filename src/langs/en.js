@@ -51,6 +51,7 @@ module.exports = {
     dice_win_x4: (amount, balance) => `:tada::tada::tada: **You won x4 ${amount}** <:rscredit:767386949400657932>. Your new balance: ${Number(balance)} <:rscredit:767386949400657932>`,
     dice_lose: (amount, balance) => `**You losed ${amount}** <:rscredit:767386949400657932>. Your new balance: ${Number(balance)} <:rscredit:767386949400657932>`,
     distext_usage: "<number> <text>",
+    distext_desc: "Distorting your text",
     cmd_usage(prefix, cmd) { return `> :x: Use \`${prefix}${cmd.name} ${this[cmd.usage]}\``},
     distext: "Text distortion",
     dsay_usage: "<text or attachments>",

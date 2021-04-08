@@ -51,6 +51,7 @@ module.exports = {
     dice_win_x4: (amount, balance) => `:tada::tada::tada: **Вы получили Х4 выигрыш!** Ваш новый баланс: ${Number(balance)} <:rscredit:767386949400657932>`,
     dice_lose: (amount, balance) => `**Вы проиграли ${amount}** <:rscredit:767386949400657932>. Ваш новый баланс: ${Number(balance)} <:rscredit:767386949400657932>`,
     distext_usage: "<число> <текст>",
+    distext_desc: "Искажает текст",
     cmd_usage(prefix, cmd) { return `> :x: Используйте \`${prefix}${cmd.name} ${this[cmd.usage]}\``},
     distext: "Искажение текста",
     dsay_usage: "<текст или вложения>",
